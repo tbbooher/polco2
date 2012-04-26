@@ -1,5 +1,5 @@
 body{
-	background-image: url('../img/quilt.png');
+	background-image: image-url('/images/quilt.png');
 }
 @font-face {
 	font-family: agencyfb;
@@ -11,7 +11,7 @@ body{
 }
 /*Header styles*/
 #header{
-	background-image: url('../img/menu_bg.jpg');
+	background-image: image-url('/images/menu_bg.jpg');
 	height:70px;
 	width:auto;
 	display:block;
@@ -25,7 +25,7 @@ body{
 	right: 0px;
 }
 #header #logo{
-	background-image: url('../img/logo.png');
+	background-image: image-url('/images/logo.png');
 	width:142px;
 	height:141px;
 	text-indent:-99999px;
@@ -46,7 +46,7 @@ body{
 	padding: 4px 7px 5px 7px;
 }
 #header #navi li:hover{
-	background-image: url('../img/navi_select.jpg');
+	background-image: image-url('/images/navi_select.jpg');
 	border-radius:5px;
 }
 .dropdown-menu li a{
@@ -58,7 +58,7 @@ padding:10px;
 	border-radius:0px!important;
 }
 .selected{
-	background-image: url('../img/navi_select.jpg');
+	background-image: image-url('/images/navi_select.jpg');
 	border-radius:5px;	
 }
 #header #navi li a{
@@ -105,13 +105,13 @@ top: 50%;
 }
 /*Sectional styles*/
 .sect_title{
-	background-image: url('../img/zig.png');
+	background-image: image-url('/images/zig.png');
 	height:15px;
 	text-align:center;
 	margin-bottom:60px;
 }
 .sect_title h3{
-	background-image: url('../img/quilt.png');
+	background-image: image-url('/images/quilt.png');
 	display: inline;
 	opacity:1.0 !important;
 	color:#303030;
@@ -157,7 +157,7 @@ top: 50%;
 	bottom:14px;
 	font-style:italic;
 	font-size:13px;
-	color:#08C;;
+	color:#08C;
 }
 #services .description{
 	position:relative;

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home | Freshfolio</title>
+        <%= stylesheet_link_tag    "application", :media => "all" %>
+        <%= javascript_include_tag "application" %>
+	</head>
+	<body>
+		<header>
+			<div id="header" >
+			<div class="container relative">
+				<div class="row">
+					<div class="span12">
+						<div id="social">
+							<a href=""><%= image_tag "twitter.png", width: 20, height: 20 %></a>
+                          <a href=""><%= image_tag "facebook.png", width: 20, height: 20 %></a>
+                          <a href=""><%= image_tag "gplus.png", width: 20, height: 20 %></a>
+                          <a href=""><%= image_tag "rss.png", width: 20, height: 20 %></a>
+						</div>
+						<h1 id="logo">Fresh ~ Design</h1>
+						<nav>
+							<ul id="navi" >
+								<li class="selected"><a href="index.html">Home</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="portfolio.html">Portfolio</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		</header>
+
+		<div class="container">
+          <section>
+            <%= yield %>
+          </section>
+		</div>
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="span3">
+						<p class="title">Recent Work</p>
+						<p><a href="">Graphite project</a><br/>
+						<a href="">Columbian soft drink</a><br/>
+						<a href="">AR Drone Graphics</a><br/>
+						<a href="">Vodafone logo update</a><br/>
+						</p>
+					</div>
+					<div class="span2">
+						<p class="title">Pages</p>
+						<p><a href="">Home</a><br/>
+						<a href="">About</a><br/>
+						<a href="">Portfolio</a><br/>
+						<a href="">Contact us</a><br/>
+						<a href="">FAQ</a><br/>
+
+						</p>
+					</div>
+					<div class="span2">
+						<p class="title">Social </p>
+						<p><a href="">Twitter</a><br/>
+						<a href="">G+</a><br/>
+						<a href="">Facebook</a><br/>
+						<a href="">Dribbble</a><br/>
+						</p>
+					</div>
+					<div class="span4 offset1">
+						<p class="title">Contact us</p>
+						<form>
+							    <div class="controls">
+							      <input type="text" class="input-xlarge" placeholder="Name" id="name">
+							    </div>
+							    <div class="controls">
+							      <input type="text" class="input-xlarge" placeholder="Email" id="email">
+							    </div>
+					            <div class="controls">
+					              <textarea class="input-xlarge" id="textarea" placeholder="your message" rows="3"></textarea>
+					            </div>
+						     <button type="submit" class="btn btn-success">Send Message</button>
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+		</footer>
+		<div class="container">
+			<p>Coypright &copy; 2011 | wporter.com</p>
+		</div>
+	</body>
+</html>
