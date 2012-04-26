@@ -1,0 +1,8 @@
+= simple_form_for(@bill) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :congress
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Congress:
+  = @bill.congress
+
+= link_to 'Edit', edit_bill_path(@bill)
+\|
+= link_to 'Back', bills_path

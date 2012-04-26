@@ -1,0 +1,32 @@
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (34ms) polco2_test['system.namespaces'].find({})
+Processing by HomeController#index as HTML
+  Rendered home/index.html.haml within layouts/application (0.7ms)
+Completed 200 OK in 45ms (Views: 44.3ms)
+MONGODB (3ms) polco2_test['system.namespaces'].find({})
+Processing by UsersController#show as HTML
+Redirected to http://test.host/
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 302 Found in 1ms
+MONGODB (0ms) polco2_test['system.namespaces'].find({})
+Processing by UsersController#index as HTML
+Redirected to http://test.host/
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 302 Found in 1ms
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (0ms) polco2_test['system.namespaces'].find({})
+Processing by HomeController#index as HTML
+  Rendered home/index.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 70ms (Views: 69.5ms)
+MONGODB (0ms) polco2_test['system.namespaces'].find({})
+Processing by UsersController#show as HTML
+Redirected to http://test.host/
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 302 Found in 1ms
+MONGODB (0ms) polco2_test['system.namespaces'].find({})
+Processing by UsersController#index as HTML
+Redirected to http://test.host/
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 302 Found in 1ms
