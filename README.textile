@@ -1,6 +1,6 @@
 h1. Polco2
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Polco changes the way we interact with our government.
 
 h2. More Information
 

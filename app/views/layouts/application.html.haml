@@ -1,0 +1,98 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+      %title= content_for?(:title) ? yield(:title) : "Polco"
+      %meta{:charset => "utf-8"}
+      %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
+      %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+      %title= content_for?(:title) ? yield(:title) : "Booher Life"
+      %meta{:content => "", :name => "description"}
+      %meta{:content => "", :name => "author"}
+      = stylesheet_link_tag    "application", :media => "all"
+      = javascript_include_tag "application"
+      = csrf_meta_tags
+      = yield(:head)
+  %body
+    %header
+      #header
+        .container.relative
+          .row
+            .span12
+              #social
+                %a{:href => ""}= image_tag "twitter.png", width: 20, height: 20
+                %a{:href => ""}= image_tag "facebook.png", width: 20, height: 20
+                %a{:href => ""}= image_tag "gplus.png", width: 20, height: 20
+                %a{:href => ""}= image_tag "rss.png", width: 20, height: 20
+              %h1#logo Polco
+              %nav
+                %ul#navi
+                  %li.selected
+                    %a{:href => "index.html"} Home
+                  %li
+                    %a{:href => "about.html"} About
+                  %li
+                    %a{:href => "portfolio.html"} Portfolio
+                  %li
+                    %a{:href => "contact.html"} Contact
+    .container
+      - if content_for?(:title)
+        %section{id: yield(:title)}
+          .sect_title
+            %h3= yield(:title)
+      %section
+        - flash.each do |name, msg|
+          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+            %a.close{"data-dismiss" => "alert"} ×
+            = msg
+        = yield
+    %footer
+      .container
+        .row
+          .span3
+            %p.title Recent Work
+            %p
+              %a{:href => ""} Graphite project
+              %br/
+              %a{:href => ""} Columbian soft drink
+              %br/
+              %a{:href => ""} AR Drone Graphics
+              %br/
+              %a{:href => ""} Vodafone logo update
+              %br/
+          .span2
+            %p.title Pages
+            %p
+              %a{:href => ""} Home
+              %br/
+              %a{:href => ""} About
+              %br/
+              %a{:href => ""} Portfolio
+              %br/
+              %a{:href => ""} Contact us
+              %br/
+              %a{:href => ""} FAQ
+              %br/
+          .span2
+            %p.title Social
+            %p
+              %a{:href => ""} Twitter
+              %br/
+              %a{:href => ""} G+
+              %br/
+              %a{:href => ""} Facebook
+              %br/
+              %a{:href => ""} Dribbble
+              %br/
+          .span4.offset1
+            %p.title Contact us
+            %form
+              .controls
+                %input#name.input-xlarge{:placeholder => "Name", :type => "text"}
+              .controls
+                %input#email.input-xlarge{:placeholder => "Email", :type => "text"}
+              .controls
+                %textarea#textarea.input-xlarge{:placeholder => "your message", :rows => "3"}
+              %button.btn.btn-success{:type => "submit"} Send Message
+    .container
+      %p Coypright © 2011 | polco.us

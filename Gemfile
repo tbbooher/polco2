@@ -44,3 +44,6 @@ gem "omniauth-github"
 gem "bootstrap-sass", ">= 2.0.1"
 gem "simple_form"
 gem "heroku"
+
+gem 'feedzirra'
+gem 'sax-machine'
