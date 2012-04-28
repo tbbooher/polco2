@@ -36,7 +36,7 @@ gem 'inherited_resources'
 gem "guard-bundler", ">= 0.1.3", :group => :development
 gem "guard-rails", ">= 0.0.3", :group => :development
 gem "guard-livereload", ">= 0.3.0", :group => :development
-gem "guard-rspec", ">= 0.4.3", :group => :development
+gem "guard-rspec", ">= 0.4.3", :group => [:development, :test]
 gem "bson_ext", ">= 1.6.2"
 gem "mongoid", ">= 2.4.8"
 gem "omniauth", ">= 1.0.3"
@@ -45,5 +45,12 @@ gem "bootstrap-sass", ">= 2.0.1"
 gem "simple_form"
 gem "heroku"
 
+gem "capybara", :group => :test
+gem "spork", :group => :test
+gem "guard-spork", :group => :test
+gem "faker", group: [:test, :development]
+#gem "mongoid_counter_cache"
+
 gem 'feedzirra'
 gem 'sax-machine'
+gem 'httparty'

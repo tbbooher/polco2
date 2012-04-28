@@ -27,14 +27,13 @@
               %h1#logo Polco
               %nav
                 %ul#navi
-                  %li.selected
-                    %a{:href => "index.html"} Home
-                  %li
-                    %a{:href => "about.html"} About
-                  %li
-                    %a{:href => "portfolio.html"} Portfolio
-                  %li
-                    %a{:href => "contact.html"} Contact
+                  %li.selected= link_to "House Bills", ""
+                  %li= link_to "District + Reps", root_path
+                  %li= link_to "H Representation", ""
+                  %li= link_to "Senate Bills", ""
+                  %li= link_to "States", ""
+                  %li= link_to "S Representation", ""
+
     .container
       - if content_for?(:title)
         %section{id: yield(:title)}
@@ -50,28 +49,16 @@
       .container
         .row
           .span3
-            %p.title Recent Work
+            %p.title Recent Bills
             %p
-              %a{:href => ""} Graphite project
+              %a{:href => ""} Bill Bad
               %br/
-              %a{:href => ""} Columbian soft drink
-              %br/
-              %a{:href => ""} AR Drone Graphics
-              %br/
-              %a{:href => ""} Vodafone logo update
+              %a{:href => ""} Bill Good
               %br/
           .span2
             %p.title Pages
             %p
-              %a{:href => ""} Home
-              %br/
-              %a{:href => ""} About
-              %br/
-              %a{:href => ""} Portfolio
-              %br/
-              %a{:href => ""} Contact us
-              %br/
-              %a{:href => ""} FAQ
+              %a{:href => ""} Some good ideas?
               %br/
           .span2
             %p.title Social

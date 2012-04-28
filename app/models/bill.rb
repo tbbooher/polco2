@@ -1,5 +1,7 @@
 class Bill
   include Mongoid::Document
+  include VotingLogic
+  include VotingMethods
 
   # needed for comments
   #field :interpreter,                             :default => :markdown
@@ -33,7 +35,7 @@ class Bill
   field :cosponsors_count, :type => Integer
   field :govtrack_id, :type => String
   # add index
-  field :govtrack_name, :type => String
+  field :govtrack_name, type: String
 
   index :govtrack_name
 
@@ -48,10 +50,10 @@ class Bill
   index :roll_time
 
   # TODO -- this is recorded in votes -- can't we delete?
-  field :ayes, :type => Integer
-  field :nays, :type => Integer
-  field :abstains, :type => Integer
-  field :presents, :type => Integer
+  #field :ayes, :type => Integer
+  #field :nays, :type => Integer
+  #field :abstains, :type => Integer
+  #field :presents, :type => Integer
 
   scope :house_bills, where(title: /^h/)
   scope :senate_bills, where(title: /^s/)
@@ -61,18 +63,14 @@ class Bill
   #scope :rolled_senate_bills, where(title: /^s/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   scope :house_roll_called_bills, where(:roll_time.exists => true) # .descending(:roll_time)
 
-  #belongs_to :sponsor, :class_name => "Legislator"
-  #has_and_belongs_to_many :cosponsors, :order => :state, :class_name => "Legislator"
-  #has_and_belongs_to_many :subjects
+  belongs_to :sponsor, :class_name => "Legislator"
+  has_and_belongs_to_many :cosponsors, :order => :state, :class_name => "Legislator"
+  has_and_belongs_to_many :subjects
 
   validates_presence_of :govtrack_name
 
-  #has_many :votes
+  has_many :votes
   #embeds_many :member_votes
-
-  def activity?
-    self.votes.size > 0 || self.member_votes.size > 0
-  end
 
   # Mongoid::Errors::Validations: Validation failed - Title can't be blank.
   def short_title
@@ -113,30 +111,6 @@ class Bill
   end
 
   # ------------------- Public booher_modules aggregation methods -------------------
-
-  def get_overall_users_vote
-    common_id = PolcoGroup.where(type: :common).first.id
-    process_votes(self.votes.where(polco_group_id: common_id).all.to_a)
-  end
-
-  def get_votes_by_name_and_type(name, type) # RECENT
-                                             # we need to protect against a group named by the state
-    process_votes(self.votes.all.select { |v| (v.polco_group.name == name && v.polco_group.type == type) })
-  end
-
-  def voted_on?(user)
-    if vote = user.votes.where(bill_id: self.id).first
-      vote.value
-    end
-  end
-
-  def users_vote(user)
-    if vote = self.votes.all.select { |v| v.user = user }.first
-      vote.value
-    else
-      "none"
-    end
-  end
 
   def self.full_type(bill_type)
     case bill_type
@@ -203,8 +177,8 @@ class Bill
     {:date => last_action.first, :description => last_action.last}
   end
 
-  def update_bill
-    # assumes self.govtrack_name
+  def update_bill(force_update = false)
+    # this is a critical method . . . (27 April 2012)
     if self.govtrack_name
       file_data = File.new("#{Rails.root}/data/bills/#{self.govtrack_name}.xml", 'r')
     else
@@ -212,7 +186,7 @@ class Bill
     end
     bill = Feedzirra::Parser::GovTrackBill.parse(file_data)
     # check for changes
-    if bill && (self.introduced_date.nil? || (bill.introduced_date.to_date > self.introduced_date))
+    if (bill && (self.introduced_date.nil? || (bill.introduced_date.to_date > self.introduced_date) || force_update))
       # front-matter
       puts "updating #{self.govtrack_name}"
       self.congress = bill.congress
@@ -239,8 +213,8 @@ class Bill
       #puts "the bill is valid? #{self.valid?}"
 
       # sponsors
-      save_sponsor(bill.sponsor_id)
-      save_cosponsors(bill.cosponsor_ids) unless bill.cosponsor_ids.empty?
+      #save_sponsor(bill.sponsor_id)
+      #save_cosponsors(bill.cosponsor_ids) unless bill.cosponsor_ids.empty?
 
       # Yield to a block that can perform arbitrary calls on this bill
       if block_given?
@@ -304,27 +278,12 @@ class Bill
   end
 
   def get_actions(raw_actions)
+    # what are the actions? next steps for the bill, right?
     actions = Array.new
     raw_actions.each_slice(2) do |action|
       actions.push action
     end
     actions.sort_by { |d, a| d }.reverse
-  end
-
-  def find_member_vote(member)
-    if self.member_votes
-      if vote = self.member_votes.where(legislator_id: member.id).first
-        vote.value
-      else
-        ""
-      end
-    else
-      "no member votes to search"
-    end
-  end
-
-  def members_tally
-    process_votes(self.member_votes)
   end
 
   # TODO -- need to write ways to get titles and actions for views (but not what we store in the db)

@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 puts 'EMPTY THE MONGODB DATABASE'
 Mongoid.master.collections.reject { |c| c.name =~ /^system/}.each(&:drop)
+puts 'create the common polco_group'
+PolcoGroup.find_or_create_by(name: 'common', description: 'common group for all of polco', type: :common)

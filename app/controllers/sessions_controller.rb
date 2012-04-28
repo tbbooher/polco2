@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to '/auth/github'
+    unless Rails.env.production?
+      redirect_to '/auth/developer'
+    else
+      redirect_to '/auth/github'
+    end
   end
 
 

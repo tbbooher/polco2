@@ -2,9 +2,20 @@
 
 FactoryGirl.define do
   factory :user do
-    provider "MyString"
-    uid "MyString"
-    name "MyString"
-    email "MyString"
+    provider "developer"
+    name "Leopold"
+    email "leopold@habsburgfamily.es"
+    joined_groups {[FactoryGirl.create(:polco_group)]}
+    state {FactoryGirl.create(:oh)}
+    district {FactoryGirl.create(:district)}
+
+    factory :random_user, class: User do
+      name {Faker::Name.name}
+      email {Faker::Internet.email}
+      joined_groups []
+      district nil
+      state nil
+    end
   end
+
 end
