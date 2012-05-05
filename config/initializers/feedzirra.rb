@@ -23,6 +23,12 @@ module Feedzirra
       # top part
       element :roll, :value => :where, :as => :chamber
       element :roll, :value => :session, :as => :session
+      element :roll, :value => :ayes, :as => :ayes
+      element :roll, :value => :nays, :as => :nays
+      element :roll, :value => :nv, :as => :nv
+      element :roll, :value => :present, :as => :present
+      element :type, :as => :type
+      element :result, :as => :result
       element :category, :as => :bill_category
       element :roll, :value => :datetime, :as => :original_time
       element :roll, :value => :updated, :as => :updated_time

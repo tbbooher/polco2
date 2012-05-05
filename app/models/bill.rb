@@ -72,7 +72,8 @@ class Bill
   validates_presence_of :govtrack_name
 
   has_many :votes
-  embeds_many :member_votes
+  #embeds_many :member_votes
+  embeds_many :rolls
 
   # Mongoid::Errors::Validations: Validation failed - Title can't be blank.
   def short_title
@@ -177,6 +178,29 @@ class Bill
   def get_latest_action
     last_action = self.bill_actions.sort_by { |dt, tit| dt }.last
     {:date => last_action.first, :description => last_action.last}
+  end
+
+  def pull_in_roll(roll_name)
+    f = File.new("#{DATA_PATH}/rolls/#{roll_name}", 'r')
+    feed = Feedzirra::Parser::RollCall.parse(f)
+    roll = Roll.new
+    roll.chamber = feed.chamber
+    roll.session = feed.session
+    roll.result = feed.result
+    roll.required = feed.required
+    roll.type = feed.type
+    roll.bill_type = feed.bill_type
+    roll.the_question = feed.the_question
+    roll.bill_category = feed.bill_category
+    roll.ayes = feed.ayes
+    roll.nays = feed.nays
+    roll.nv = feed.nv
+    roll.present = feed.present
+    roll.year = feed.year
+    roll.congress = feed.congress
+    roll.original_time = feed.original_time
+    roll.updated_time = feed.updated_time
+    self.rolls.push(roll)
   end
 
   def update_bill(force_update = false)

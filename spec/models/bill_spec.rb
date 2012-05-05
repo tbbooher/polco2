@@ -75,8 +75,11 @@ describe Bill do
       feed.roll_call.count.should eq(434)
     end
 
-    it "should correctly pull in all votes from rolls" do
-      pending
+    it "should be able to embed a role" do
+      # govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
+      # h2009-11.xml h2011-28.xml h2011-40.xml h2011-9.xml
+      b = FactoryGirl.create(:bill)
+      b.pull_in_roll("h2009-11.xml")
     end
 
     it "should be able to get roll-counts inside all relevant bills " do
