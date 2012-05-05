@@ -21327,3 +21327,5 @@ MONGODB (0ms) polco2_development['users'].insert([{"joined_group_ids"=>[BSON::Ob
 MONGODB (0ms) polco2_development['polco_groups'].update({:_id=>{"$in"=>[BSON::ObjectId('4f9ba81ef11aac69b2000007')]}}, {"$addToSet"=>{"member_ids"=>BSON::ObjectId('4f9bf404f11aac6ce6000001')}})
 MONGODB (0ms) polco2_development['polco_groups'].update({:_id=>{"$in"=>[]}}, {"$pull"=>{"member_ids"=>BSON::ObjectId('4f9bf404f11aac6ce6000003')}})
 MONGODB (1ms) polco2_development['$cmd'].find({"count"=>"polco_groups", "query"=>{:name=>"VA08", :type=>:district}, "fields"=>nil}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (23ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)

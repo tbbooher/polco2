@@ -25,7 +25,7 @@ class User
   #has_and_belongs_to_many :senators, :class_name => "Legislator", :inverse_of => :state_constituents
   #belongs_to :representative, :class_name => "Legislator", :inverse_of => :district_constituents
 
-  before_validation :assign_default_group
+  before_create :assign_default_group
 
   def us_state
     self.state.name

@@ -11,11 +11,13 @@ module VotingLogic
     unless my_groups.empty?
       unless self.voted_on?(user)
         user.record_vote_for_state_and_district(self.id, value)
+        self.inc(:vote_count,1)
         my_groups.each_with_index do |g, i|
           puts "processing #{value} for #{self} name: #{g.name} bill: #{self.title} index #{i}"
           unless Vote.create!(:value => value, :user => user, :polco_group => g, :bill => self)
             raise "vote not valid"
           else
+            # increase vote count
             puts "created vote #{value} for group #{g.name}"
           end
         end

@@ -41,6 +41,7 @@ class Bill
 
   field :summary_word_count, :type => Integer
   field :text_word_count, :type => Integer
+  field :vote_count, :type => Integer
 
   field :text_updated_on, :type => Date
   field :hidden, :type => Boolean
@@ -62,6 +63,7 @@ class Bill
   #scope :rolled_house_bills, where(title: /^h/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   #scope :rolled_senate_bills, where(title: /^s/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   scope :house_roll_called_bills, where(:roll_time.exists => true) # .descending(:roll_time)
+  scope :most_popular, desc(:vote_count).limit(10)
 
   belongs_to :sponsor, :class_name => "Legislator"
   has_and_belongs_to_many :cosponsors, :order => :state, :class_name => "Legislator"
@@ -70,7 +72,7 @@ class Bill
   validates_presence_of :govtrack_name
 
   has_many :votes
-  #embeds_many :member_votes
+  embeds_many :member_votes
 
   # Mongoid::Errors::Validations: Validation failed - Title can't be blank.
   def short_title
@@ -180,7 +182,7 @@ class Bill
   def update_bill(force_update = false)
     # this is a critical method . . . (27 April 2012)
     if self.govtrack_name
-      file_data = File.new("#{Rails.root}/data/bills/#{self.govtrack_name}.xml", 'r')
+      file_data = File.new("#{DATA_PATH}/bills/#{self.govtrack_name}.xml", 'r')
     else
       raise "The bill does not have the property govtrack_name."
     end

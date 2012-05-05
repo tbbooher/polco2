@@ -1,3 +1,5 @@
+DATA_PATH = "#{Rails.root}/spec/test_data/"
+
 Polco2::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
