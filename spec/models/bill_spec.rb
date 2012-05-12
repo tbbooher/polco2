@@ -7,7 +7,7 @@ describe Bill do
     it "should be able to get a list of subjects for a bill" do
       #b = FactoryGirl.create(:bill)
       b = Bill.find_or_create_by(:title => "h3605", :govtrack_name => "h3605")
-      b.update_bill
+      b.update_bill # should modify this to work offline vcr ? with HTTParty.get govtrack
       b.subjects.size.should eql(15)
       b.subjects.last.name.should eql("Trade restrictions")
     end
@@ -59,7 +59,7 @@ describe Bill do
     it "should be able to pull in a bill and update it" do
       bill_name = "h3605"
       b = Bill.find_or_create_by(:title => bill_name, :govtrack_name => bill_name)
-      b.update_bill
+      b.update_bill # here HTTParty.get needs stubbed again (WebMock ? or VCR?)
       b.titles[0].last.should eql("Global Online Freedom Act of 2011")
       b.should be_valid
     end
@@ -78,20 +78,13 @@ describe Bill do
     it "should be able to embed a role" do
       # govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
       # h2009-11.xml h2011-28.xml h2011-40.xml h2011-9.xml
-      b = FactoryGirl.create(:bill)
-      b.pull_in_roll("h2009-11.xml")
-    end
-
-    it "should be able to get roll-counts inside all relevant bills " do
-      pending
-      # update_rolls should bring in the latest votes for all
-      #@house_bill_with_roll_count.members_tally.should eq({:ayes => 236, :nays => 182, :abstains => 16, :presents => 0})
-      ## we should also be able to get a member's result on a specific bill
-      #member = @house_bill_with_roll_count.member_votes.first.legislator
-      #puts member.full_name
-      #assert_equal(:aye, @house_bill_with_roll_count.find_member_vote(member))
-      #assert_equal(:nay, @house_bill_with_roll_count.find_member_vote(Legislator.where(govtrack_id: 400436).first))
-      #assert_equal(:abstain, @house_bill_with_roll_count.find_member_vote(Legislator.where(govtrack_id: 412445).first))
+      # a role should update the status of the bill
+      b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '26', govtrack_id: 'h112-26')
+      load_legislators
+      b.pull_in_roll("h2011-9.xml")
+      roll = b.rolls.first
+      roll.year.should eq(2011)
+      roll.aye.should eq(236)
     end
 
   end

@@ -13,4 +13,10 @@ describe User do
     u.save
     u.joined_groups.size.should eq(2)
   end
+
+  it "should be able to show all bills by chamber a user has not voted on" do
+    u = FactoryGirl.create(:user)
+    create_20_and_vote_on_10(u)
+    u.voted_bills.size.should eq(10)
+  end
 end

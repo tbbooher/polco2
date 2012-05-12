@@ -23,10 +23,11 @@ module Feedzirra
       # top part
       element :roll, :value => :where, :as => :chamber
       element :roll, :value => :session, :as => :session
-      element :roll, :value => :ayes, :as => :ayes
-      element :roll, :value => :nays, :as => :nays
+      element :roll, :value => :aye, :as => :aye
+      element :roll, :value => :nay, :as => :nay
       element :roll, :value => :nv, :as => :nv
       element :roll, :value => :present, :as => :present
+      element :roll, :value => :year, :as => :year
       element :type, :as => :type
       element :result, :as => :result
       element :category, :as => :bill_category
@@ -38,6 +39,7 @@ module Feedzirra
       element :bill, :value => :session, :as => :congress
       element :bill, :value => :type, :as => :bill_type
       element :bill, :value => :number, :as => :bill_number
+
       #<option key="+">Yea</option>
       #<option key="-">Nay</option>
       #<option key="P">Present</option>

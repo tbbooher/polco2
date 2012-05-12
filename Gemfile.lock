@@ -270,6 +270,7 @@ DEPENDENCIES
   httparty
   inherited_resources
   jquery-rails
+  launchy
   mongoid (>= 2.4.8)
   mongoid-rspec (>= 1.4.4)
   omniauth (>= 1.0.3)

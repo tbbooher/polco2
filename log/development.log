@@ -21329,3 +21329,855 @@ MONGODB (0ms) polco2_development['polco_groups'].update({:_id=>{"$in"=>[]}}, {"$
 MONGODB (1ms) polco2_development['$cmd'].find({"count"=>"polco_groups", "query"=>{:name=>"VA08", :type=>:district}, "fields"=>nil}).limit(-1)
 MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
 MONGODB (23ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (39ms) polco2_development['system.namespaces'].find({})
+MONGODB (24ms) polco2_development['bills'].find({}).limit(-1).sort([[:_id, :asc]])
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (380ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (41ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+
+
+Started GET "/" for 127.0.0.1 at 2012-05-09 20:09:50 -0400
+Processing by HomeController#index as HTML
+MONGODB (54ms) polco2_development['system.namespaces'].find({})
+MONGODB (36ms) polco2_development['users'].find({:_id=>BSON::ObjectId('4f9ab569f11aac619e000002')}).limit(-1).sort([[:_id, :asc]])
+  Rendered home/index.html.haml within layouts/application (888.1ms)
+Completed 200 OK in 1965ms (Views: 1964.3ms)
+
+
+Started GET "/assets/bills.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bills.css - 200 OK (5ms)
+
+
+Started GET "/assets/jquery.lightbox-0.5.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /jquery.lightbox-0.5.css - 200 OK (3ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /style.css - 200 OK (3ms)
+
+
+Started GET "/assets/subjects.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /subjects.css - 200 OK (3ms)
+
+
+Started GET "/assets/bills.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bills.js - 200 OK (24ms)
+
+
+Started GET "/assets/custom.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /custom.js - 200 OK (10ms)
+
+
+Started GET "/assets/subjects.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /subjects.js - 200 OK (4ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /scaffolds.css - 304 Not Modified (10ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /jquery.js - 304 Not Modified (37ms)
+
+
+Started GET "/assets/bootstrap_and_overrides.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap_and_overrides.css - 200 OK (15ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (12ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:53 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (13ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (9ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /application.css - 200 OK (132ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (25ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (15ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap.js - 304 Not Modified (187ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /home.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (14ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /users.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-05-09 20:09:54 -0400
+Served asset /application.js - 200 OK (329ms)
+
+
+Started GET "/assets/menu_bg.jpg" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /menu_bg.jpg - 200 OK (51ms)
+
+
+Started GET "/assets/quilt.png" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /quilt.png - 200 OK (3ms)
+
+
+Started GET "/assets/AGENCYB.TTF" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /AGENCYB.TTF - 200 OK (49ms)
+
+
+Started GET "/assets/twitter.png" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /twitter.png - 200 OK (23ms)
+
+
+Started GET "/assets/facebook.png" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /facebook.png - 200 OK (5ms)
+
+
+Started GET "/assets/gplus.png" for 127.0.0.1 at 2012-05-09 20:09:55 -0400
+Served asset /gplus.png - 200 OK (19ms)
+
+
+Started GET "/assets/League-Gothic.otf" for 127.0.0.1 at 2012-05-09 20:09:56 -0400
+Served asset /League-Gothic.otf - 200 OK (12ms)
+
+
+Started GET "/assets/rss.png" for 127.0.0.1 at 2012-05-09 20:09:56 -0400
+Served asset /rss.png - 200 OK (6ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2012-05-09 20:09:56 -0400
+Served asset /logo.png - 200 OK (38ms)
+
+
+Started GET "/assets/navi_select.jpg" for 127.0.0.1 at 2012-05-09 20:09:56 -0400
+Served asset /navi_select.jpg - 200 OK (32ms)
+
+
+Started GET "/assets/zig.png" for 127.0.0.1 at 2012-05-09 20:09:56 -0400
+Served asset /zig.png - 200 OK (81ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Processing by HomeController#index as HTML
+MONGODB (1ms) polco2_development['users'].find({:_id=>BSON::ObjectId('4f9ab569f11aac619e000002')}).limit(-1).sort([[:_id, :asc]])
+  Rendered home/index.html.haml within layouts/application (4.3ms)
+Completed 200 OK in 42ms (Views: 42.0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /bootstrap.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:19 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Processing by HomeController#index as HTML
+MONGODB (0ms) polco2_development['users'].find({:_id=>BSON::ObjectId('4f9ab569f11aac619e000002')}).limit(-1).sort([[:_id, :asc]])
+  Rendered home/index.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 38ms (Views: 37.4ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /scaffolds.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /bootstrap.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:21 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Processing by HomeController#index as HTML
+MONGODB (0ms) polco2_development['users'].find({:_id=>BSON::ObjectId('4f9ab569f11aac619e000002')}).limit(-1).sort([[:_id, :asc]])
+  Rendered home/index.html.haml within layouts/application (3.5ms)
+Completed 200 OK in 146ms (Views: 145.7ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:22 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /bootstrap.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-09 20:11:23 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (82ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB (87ms) polco2_development['system.namespaces'].find({})
+MONGODB (1ms) polco2_development['bills'].insert([{"allow_comments"=>true, "allow_public_comments"=>true, "cosponsor_ids"=>[], "subject_ids"=>[], "_id"=>BSON::ObjectId('4fad72e1f11aacdfab000001'), "congress"=>112, "bill_number"=>1, "bill_type"=>"s", "last_updated"=>2012-03-28 00:00:00 UTC, "bill_state"=>"REPORTED", "introduced_date"=>2011-12-08 00:00:00 UTC, "title"=>"s1", "titles"=>[["short", "This is the short title"], ["official", "This is the official title."]], "summary"=>"Quibusdam voluptate incidunt exercitationem sed accusamus eius. Sed nam molestiae repudiandae similique temporibus aliquam. Consectetur aut saepe quam et sint ea doloremque.", "bill_actions"=>[["2011-02-17", "Message on Senate action sent to the House."], ["2011-02-16", "Received in the Senate."], ["2011-02-15T14:12:00-05:00", "Motion to reconsider laid on the table Agreed to without objection."], ["2011-02-15T14:06:00-05:00", "Considered as unfinished business."], ["2011-02-15T13:30:00-05:00", "POSTPONED PROCEEDINGS - The Chair put the question on the adoption of the concurrent resolution, and by voice vote, the Chair announced the noes had prevailed. Mr. Woodall objected to the vote on the grounds that a quorum was not present. Further proceedings on the motion were postponed. The point of no quorum was withdrawn."], ["2011-02-15T13:28:00-05:00", "Considered as privileged matter."]], "bill_html"=>"Alias voluptas cupiditate. Molestiae aut voluptatem dolor ea. Et consequatur esse. Impedit ullam porro. Quibusdam voluptas tenetur quia consectetur.\nExplicabo qui totam deserunt saepe a molestiae. Ab et assumenda ipsa. Natus commodi ex. Quaerat ut perferendis ut.\nQuaerat impedit in. Voluptate enim nulla minus ut in officia quam. Autem ut fugiat odio rerum quidem aut.\nQuidem cumque velit tempora saepe sint. Aut corporis quo eligendi laboriosam veritatis iure est. Magnam necessitatibus et odio expedita voluptatum.\nOfficia sint tenetur. Soluta blanditiis unde iste. Doloremque qui cumque minus.\nSit nostrum iste vitae est id doloremque. Et debitis magnam dolorum modi quia non iusto. Modi sed molestiae eaque quisquam sunt nihil. Aut odio nisi ex quis et deserunt et.\nQuod ad cupiditate dolorem natus rerum quae molestiae. Dolor et eos aliquid dicta suscipit aut. Nobis dignissimos iusto id voluptatibus consectetur dolores.\nIure aut reiciendis vitae. In autem occaecati sequi et tenetur magnam quia. Itaque natus quod aut ea porro commodi. Sequi consequatur eos facere ut voluptas nulla aperiam.\nConsequatur harum consectetur quam assumenda quod. Minima sed alias ea quasi. Et molestiae possimus aut veniam voluptatem.\nMaiores dolorem consequatur officiis amet adipisci. Ad nostrum natus ipsum corporis ipsam aperiam optio. Aspernatur exercitationem provident repudiandae. Enim nulla optio enim aspernatur numquam omnis consequuntur.", "ident"=>"112-s1", "cosponsors_count"=>0, "govtrack_id"=>"s112-1", "govtrack_name"=>"s1", "summary_word_count"=>286, "text_word_count"=>4976, "text_updated_on"=>2012-04-27 00:00:00 UTC, "hidden"=>nil, "roll_time"=>nil, "sponsor_id"=>nil}])
+MONGODB (54ms) polco2_development['bills'].find({}).limit(-1).sort([[:_id, :desc]])
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (6ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (87ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (9ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+
+
+Started GET "/backend/" for 127.0.0.1 at 2012-05-11 16:35:34 -0400
+
+ActionController::RoutingError (No route matches [GET] "/backend"):
+  actionpack (3.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.3) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.3) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.3) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.3) lib/rails/rack/log_tailer.rb:14:in `call'
+  thin (1.3.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.3.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.3.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.3.1) lib/thin/connection.rb:53:in `process'
+  thin (1.3.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (0.12.10) lib/eventmachine.rb:256:in `run_machine'
+  eventmachine (0.12.10) lib/eventmachine.rb:256:in `run'
+  thin (1.3.1) lib/thin/backends/base.rb:61:in `start'
+  thin (1.3.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.3) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.3) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.3) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.3) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<top (required)>'
+  ruby-debug-ide (0.4.17.beta9) lib/ruby-debug-ide.rb:121:in `debug_load'
+  ruby-debug-ide (0.4.17.beta9) lib/ruby-debug-ide.rb:121:in `debug_program'
+  ruby-debug-ide (0.4.17.beta9) bin/rdebug-ide:95:in `<top (required)>'
+  -e:1:in `load'
+  -e:1:in `<main>'
+
+
+  Rendered /Users/Tim/.rvm/gems/ruby-1.9.3-p194@polco2/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.2ms)
+
+
+Started GET "/bills/house_bills" for 127.0.0.1 at 2012-05-11 16:35:36 -0400
+Processing by BillsController#show as HTML
+  Parameters: {"id"=>"house_bills"}
+Completed 500 Internal Server Error in 1ms
+
+BSON::InvalidObjectId (illegal ObjectId format: house_bills):
+  app/controllers/bills_controller.rb:21:in `show'
+
+
+  Rendered /Users/Tim/.rvm/gems/ruby-1.9.3-p194@polco2/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.7ms)
+  Rendered /Users/Tim/.rvm/gems/ruby-1.9.3-p194@polco2/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.4ms)
+  Rendered /Users/Tim/.rvm/gems/ruby-1.9.3-p194@polco2/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (36.6ms)
+MONGODB (41ms) polco2_development['system.namespaces'].find({})
+MONGODB (200ms) polco2_development['$cmd'].find({"count"=>"bills", "query"=>{:title=>/^h/, :bill_state=>/^INTRODUCED|REPORTED|REFERRED$/}, "fields"=>nil}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (0ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (3ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+
+
+Started GET "/represent/house_bills" for 127.0.0.1 at 2012-05-12 05:51:18 -0400
+Processing by RepresentController#house_bills as HTML
+  Rendered represent/house_bills.html.haml within layouts/application (2.3ms)
+Compiled represent.css  (7ms)  (pid 57582)
+Compiled application.css  (777ms)  (pid 57582)
+Compiled represent.js  (1741ms)  (pid 57582)
+Compiled application.js  (1923ms)  (pid 57582)
+Completed 200 OK in 4051ms (Views: 3885.5ms)
+
+
+Started GET "/assets/represent.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /represent.css - 200 OK (10ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /application.css - 304 Not Modified (33ms)
+
+
+Started GET "/assets/bills.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /bills.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery.lightbox-0.5.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /jquery.lightbox-0.5.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /style.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/subjects.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /subjects.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap_and_overrides.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /bootstrap_and_overrides.css - 304 Not Modified (14ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /scaffolds.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /jquery.js - 304 Not Modified (15ms)
+
+
+Started GET "/assets/represent.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /represent.js - 200 OK (3ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:23 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (106ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (16ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (9ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/bills.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bills.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/custom.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /custom.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/subjects.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /subjects.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /application.js - 304 Not Modified (46ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /bootstrap.js - 304 Not Modified (43ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /home.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /users.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/quilt.png" for 127.0.0.1 at 2012-05-12 05:51:24 -0400
+Served asset /quilt.png - 304 Not Modified (81ms)
+
+
+Started GET "/assets/menu_bg.jpg" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /menu_bg.jpg - 304 Not Modified (16ms)
+
+
+Started GET "/assets/twitter.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /twitter.png - 304 Not Modified (30ms)
+
+
+Started GET "/assets/facebook.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /facebook.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/gplus.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /gplus.png - 304 Not Modified (11ms)
+
+
+Started GET "/assets/rss.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /rss.png - 304 Not Modified (6ms)
+
+
+Started GET "/assets/AGENCYB.TTF" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /AGENCYB.TTF - 304 Not Modified (20ms)
+
+
+Started GET "/assets/League-Gothic.otf" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /League-Gothic.otf - 304 Not Modified (4ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /logo.png - 304 Not Modified (41ms)
+
+
+Started GET "/assets/navi_select.jpg" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /navi_select.jpg - 304 Not Modified (60ms)
+
+
+Started GET "/assets/zig.png" for 127.0.0.1 at 2012-05-12 05:51:25 -0400
+Served asset /zig.png - 304 Not Modified (34ms)
+
+
+Started GET "/assets/navi_select.jpg" for 127.0.0.1 at 2012-05-12 05:53:11 -0400
+Served asset /navi_select.jpg - 304 Not Modified (0ms)
+MONGODB [DEBUG] Logging level is currently :debug which could negatively impact client-side performance. You should set your logging level no lower than :info in production.
+MONGODB (1ms) admin['$cmd'].find({:ismaster=>1}).limit(-1)
+
+
+Started GET "/represent/house_bills" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Processing by RepresentController#house_bills as HTML
+MONGODB (1ms) polco2_development['system.namespaces'].find({})
+MONGODB (0ms) polco2_development['bills'].find({:title=>/^h/, :bill_state=>/^INTRODUCED|REPORTED|REFERRED$/})
+  Rendered represent/house_bills.html.haml within layouts/application (36.3ms)
+Completed 200 OK in 107ms (Views: 105.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /application.css - 304 Not Modified (7ms)
+
+
+Started GET "/assets/bills.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bills.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap_and_overrides.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap_and_overrides.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery.lightbox-0.5.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /jquery.lightbox-0.5.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subjects.css?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /subjects.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:37 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /bootstrap.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/bills.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /bills.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /custom.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/represent.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /represent.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subjects.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /subjects.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /application.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/quilt.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /quilt.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/menu_bg.jpg" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /menu_bg.jpg - 304 Not Modified (4ms)
+
+
+Started GET "/assets/twitter.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /twitter.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebook.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /facebook.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/gplus.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /gplus.png - 304 Not Modified (1ms)
+
+
+Started GET "/assets/rss.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /rss.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/AGENCYB.TTF" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /AGENCYB.TTF - 304 Not Modified (0ms)
+
+
+Started GET "/assets/League-Gothic.otf" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /League-Gothic.otf - 304 Not Modified (0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/navi_select.jpg" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /navi_select.jpg - 304 Not Modified (0ms)
+
+
+Started GET "/assets/zig.png" for 127.0.0.1 at 2012-05-12 06:29:38 -0400
+Served asset /zig.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/navi_select.jpg" for 127.0.0.1 at 2012-05-12 06:29:43 -0400
+Served asset /navi_select.jpg - 304 Not Modified (2ms)

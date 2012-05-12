@@ -34,6 +34,10 @@ class Legislator
   scope :representatives, where(title: 'Rep.')
   scope :senators, where(title: 'Sen.')
 
+  def vote_on(bill)
+    LegislatorVote.where(legislator_id: self.id, bill_id: bill.id).first.value.to_sym
+  end
+
   def first_or_nick
     nickname.blank? ? first_name : nickname
   end
@@ -83,7 +87,7 @@ class Legislator
   end
 
   def self.update_legislators
-    file_data = File.new("#{Rails.root}/data/people.xml", 'r')
+    file_data = File.new("#{DATA_PATH}/people.xml", 'r')
     feed = Feedzirra::Parser::GovTrackPeople.parse(file_data).people
     feed.each do |person|
       role = Legislator.find_most_recent_role(person)
@@ -144,6 +148,10 @@ class Legislator
 
   def is_senator?
     self.district.nil?
+  end
+
+  def bills_voted_on
+    LegislatorVote.where(legislator_id: self.id).only(:bill_id).map(&:bill_id).uniq
   end
 
   # added by nate

@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Roll do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should be able to read a roll" do
+    pending
+  end
 end

@@ -46,6 +46,7 @@ gem "simple_form"
 gem "heroku"
 
 gem "capybara", :group => :test
+gem 'launchy', :group => :test
 gem "spork", :group => :test
 gem "guard-spork", :group => :test
 gem "faker", group: [:test, :development]

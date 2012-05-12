@@ -183,24 +183,35 @@ class Bill
   def pull_in_roll(roll_name)
     f = File.new("#{DATA_PATH}/rolls/#{roll_name}", 'r')
     feed = Feedzirra::Parser::RollCall.parse(f)
-    roll = Roll.new
-    roll.chamber = feed.chamber
-    roll.session = feed.session
-    roll.result = feed.result
-    roll.required = feed.required
-    roll.type = feed.type
-    roll.bill_type = feed.bill_type
-    roll.the_question = feed.the_question
-    roll.bill_category = feed.bill_category
-    roll.ayes = feed.ayes
-    roll.nays = feed.nays
-    roll.nv = feed.nv
-    roll.present = feed.present
-    roll.year = feed.year
-    roll.congress = feed.congress
-    roll.original_time = feed.original_time
-    roll.updated_time = feed.updated_time
-    self.rolls.push(roll)
+    # check to make sure this is the same bill
+    govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
+    if self.govtrack_id == govtrack_id
+      roll = Roll.new
+      roll.chamber = feed.chamber
+      roll.session = feed.session
+      roll.result = feed.result
+      roll.required = feed.required
+      roll.type = feed.type
+      roll.bill_type = feed.bill_type
+      roll.the_question = feed.the_question
+      roll.bill_category = feed.bill_category
+      roll.aye = feed.aye
+      roll.nay = feed.nay
+      roll.nv = feed.nv
+      roll.present = feed.present
+      roll.year = feed.year
+      roll.congress = feed.congress
+      roll.original_time = feed.original_time
+      roll.updated_time = feed.updated_time
+      roll.embed_legislator_votes(feed.roll_call)
+      if roll.valid?
+        self.rolls << roll
+      else
+        raise "roll not valid"
+      end
+    else
+      raise "the roll for #{govtrack_id} doesn't match this bill: #{self.govtrack_id}"
+    end
   end
 
   def update_bill(force_update = false)

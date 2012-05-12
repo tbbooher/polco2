@@ -22,10 +22,12 @@ class User
   validates :joined_group_ids, :allow_blank => true, :uniqueness => true
   validates :followed_group_ids, :allow_blank => true, :uniqueness => true
 
-  #has_and_belongs_to_many :senators, :class_name => "Legislator", :inverse_of => :state_constituents
-  #belongs_to :representative, :class_name => "Legislator", :inverse_of => :district_constituents
+  has_and_belongs_to_many :senators, :class_name => "Legislator", :inverse_of => :state_constituents
+  belongs_to :representative, :class_name => "Legislator", :inverse_of => :district_constituents
 
   before_create :assign_default_group
+
+  scope :bills_voted_on,
 
   def us_state
     self.state.name

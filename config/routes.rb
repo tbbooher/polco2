@@ -1,4 +1,9 @@
 Polco2::Application.routes.draw do
+
+  get "represent/house_bills"
+
+  get "represent/senate_bills"
+
   resources :subjects
 
   resources :bills
@@ -9,4 +14,7 @@ Polco2::Application.routes.draw do
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
   match '/auth/failure' => 'sessions#failure'
+
+  # bills routes
+
 end
