@@ -27,7 +27,24 @@ class User
 
   before_create :assign_default_group
 
-  scope :bills_voted_on,
+  def bills_voted_on(chamber)
+    Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).map(&:bill_id)).desc(:created_at)
+  end
+
+  def bills_not_voted_on(chamber)
+    ids = Vote.where(user_id: self.id).map{|v| v.bill.id }
+    if chamber == :house
+      Bill.where(title: /^h/).not_in(_id: ids).desc(:vote_count)
+    else
+      Bill.where(title: /^s/).not_in(_id: ids).desc(:vote_count)
+    end
+    #Bill.find(Bill.all.map(&:id)-Vote.where(user_id: self.id).map{|v| v.bill.id })
+  end
+
+  def find_10_bills_not_voted_on
+    ids = Vote.where(user_id: self.id).map{|v| v.bill.id }
+    Bill.not_in(_id: ids).limit(10)
+  end
 
   def us_state
     self.state.name

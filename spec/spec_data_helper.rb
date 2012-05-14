@@ -24,7 +24,7 @@ module SpecDataHelper
   def create_20_and_vote_on_10(user)
     vote = [:aye, :aye, :nay, :aye, :nay, :aye, :nay, :aye, :aye, :nay]
     FactoryGirl.create_list(:bill, 20)[0..9].each_with_index do |bill, index|
-      bill.vote_on(user.id, vote[index])
+      bill.vote_on(user, vote[index])
     end
   end
 

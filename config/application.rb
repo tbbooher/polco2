@@ -10,6 +10,8 @@ require "sprockets/railtie"
 
 require File.expand_path('../../lib/configuration', __FILE__)
 
+VOTE_VALUES = [:aye, :nay, :abstain, :present]
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))

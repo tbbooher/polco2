@@ -13,7 +13,6 @@ describe "Bills" do
   describe "House Bills" do
     it "should show the 5 most popular bills that the user hasn't voted on and haven't been roll called" do
       u = FactoryGirl.create(:user)
-
       visit represent_house_bills_path
       bills = Bill.introduced_house_bills
       page.should have_content(bills.first.bill_title)

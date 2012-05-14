@@ -10,10 +10,23 @@ class BillsController < ApplicationController
     end
   end
 
+  def add_vote
+    @vote = Vote.new(params[:vote])
+
+    respond_to do |format|
+      if @vote.save
+        format.html { redirect_to bill_path(params[:vote][:bill_id]), notice: 'Vote was successfully created.' }
+      else
+        format.html { render action: "new" }
+      end
+    end
+  end
+
   # GET /bills/1
   # GET /bills/1.json
   def show
     @bill = Bill.find(params[:id])
+    @vote = Vote.new
 
     respond_to do |format|
       format.html # show.html.erb

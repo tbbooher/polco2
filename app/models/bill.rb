@@ -49,6 +49,7 @@ class Bill
   # roll call results
   field :roll_time, :type => DateTime
   index :roll_time
+  index :vote_count
 
   # TODO -- this is recorded in votes -- can't we delete?
   #field :ayes, :type => Integer
@@ -56,10 +57,10 @@ class Bill
   #field :abstains, :type => Integer
   #field :presents, :type => Integer
 
-  scope :house_bills, where(title: /^h/)
-  scope :senate_bills, where(title: /^s/)
-  scope :introduced_house_bills, where(title: /^h/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
-  scope :introduced_senate_bills, where(title: /^s/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
+  scope :house_bills, where(title: /^h/).desc(:vote_count)
+  scope :senate_bills, where(title: /^s/).desc(:vote_count)
+  scope :introduced_house_bills, where(title: /^h/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
+  scope :introduced_senate_bills, where(title: /^s/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
   #scope :rolled_house_bills, where(title: /^h/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   #scope :rolled_senate_bills, where(title: /^s/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   scope :house_roll_called_bills, where(:roll_time.exists => true) # .descending(:roll_time)
@@ -250,8 +251,8 @@ class Bill
       #puts "the bill is valid? #{self.valid?}"
 
       # sponsors
-      #save_sponsor(bill.sponsor_id)
-      #save_cosponsors(bill.cosponsor_ids) unless bill.cosponsor_ids.empty?
+      save_sponsor(bill.sponsor_id)
+      save_cosponsors(bill.cosponsor_ids) unless bill.cosponsor_ids.empty?
 
       # Yield to a block that can perform arbitrary calls on this bill
       if block_given?
@@ -280,14 +281,12 @@ class Bill
   end
 
   def save_sponsor(id)
-    sponsor = Legislator.where(:govtrack_id => id).first
-
-    if sponsor
+    if sponsor = Legislator.where(:govtrack_id => id).first
       self.sponsor = sponsor
       # now add this bill to the sponsor
-      self.save
-      sponsor.bills.push(self)
-      sponsor.save!
+      #self.save
+      #sponsor.bills.push(self)
+      #sponsor.save!
     else
       raise "sponsor not in database!"
     end

@@ -1,0 +1,17 @@
+%h1 Listing legislators
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @legislators.each do |legislator|
+    %tr
+      %td= link_to 'Show', legislator
+      %td= link_to 'Edit', edit_legislator_path(legislator)
+      %td= link_to 'Destroy', legislator, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Legislator', new_legislator_path

@@ -36,7 +36,7 @@ describe Bill do
     it "should increment a bill's count each time we vote" do
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id,:aye)
+      b.vote_on(u,:aye)
       b.vote_count.should eq(1)
     end
 
@@ -44,7 +44,7 @@ describe Bill do
       users = FactoryGirl.create_list(:random_user, 3, state: FactoryGirl.create(:oh), district: FactoryGirl.create(:district))
       bills = FactoryGirl.create_list(:bill, 12).each do |bill|
         users.each do |user|
-          bill.vote_on(user.id, [:aye, :nay, :abstain, :present][rand(4)]) if rand > 0.2
+          bill.vote_on(user, [:aye, :nay, :abstain, :present][rand(4)]) if rand > 0.2
         end
       end
       most_popular_bills = Bill.most_popular.to_a
@@ -92,11 +92,10 @@ describe Bill do
   context "when I interface with legislators a Bill" do
 
     it "should be able to show the house representatives vote if the bill is a hr" do
-      pending "until i get legislators set up"
-      # given that I am @user1 and I want to view hr26, I should see my specific rep's vote on this bill
-      b = FactoryGirl.create(:bill, )
-      #rep_vote = @user1.reps_vote_on(@house_bill_with_roll_count)
-      #assert_equal({:rep => "Gary Ackerman", :vote => :nay}, rep_vote, "representative's vote does not match")
+      b = FactoryGirl.create(:bill)
+      u = FactoryGirl.create(:user)
+      l = FactoryGirl.create(:legislator)
+      u.reps_vote_on(b).should eq({:rep => "Gary Ackerman", :vote => :nay})
     end
 
     it "should be able to show both senators votes if the bill is a sr" do
@@ -106,31 +105,30 @@ describe Bill do
     end
 
     it "should be able to add a sponsor to a bill" do
-      pending
-=begin
-   b = Bill.new
-   b.title = Faker::Company.name
-   b.govtrack_name = "s182" #fake
-   b.save_sponsor(400032)
-   assert_equal "Marsha Blackburn", b.sponsor.full_name
-=end
+      b = Bill.new
+      b.title = Faker::Company.name
+      b.govtrack_name = "s182" #fake
+      s = FactoryGirl.create(:legislator, govtrack_id: 400032, first_name: 'Chad', last_name: 'Whiddle')
+      b.save_sponsor(400032)
+      b.sponsor.full_name.should eq("Chad Whiddle")
+      # the the legislator should be sponsoring this bill
+      s.bills.first.should eq(b)
     end
 
-    it "save cosponsors for bill" do
-      pending
-=begin
-   Bill.destroy_all
-   b = Bill.new(
-       :congress => 112,
-       :bill_type => 's',
-       :bill_number => 368,
-       :title => 's368',
-       :govtrack_name => 's368'
-   )
-   cosponsor_ids = ["412411", "400626", "400224", "412284", "400570", "400206", "400209", "400068", "400288", "412271", "412218", "400141", "412480", "412469", "400277", "400367", "412397", "412309", "400411", "412283", "412434", "400342", "400010", "400057", "400260", "412487", "412436", "400348", "412478", "400633", "400656", "400115"]
-   b.save_cosponsors(cosponsor_ids)
-   assert_equal 32, b.cosponsors.to_a.count
-=end
+    it "should have cosponsors" do
+     b = Bill.new(
+         :congress => 112,
+         :bill_type => 's',
+         :bill_number => 368,
+         :title => 's368',
+         :govtrack_name => 's368'
+     )
+     cosponsor_ids = ["412411", "400626", "400224", "412284", "400570", "400206", "400209", "400068", "400288", "412271", "412218", "400141", "412480", "412469", "400277", "400367", "412397", "412309", "400411", "412283", "412434", "400342", "400010", "400057", "400260", "412487", "412436", "400348", "412478", "400633", "400656", "400115"]
+     cosponsor_ids.each do |id|
+       FactoryGirl.create(:legislator, govtrack_id: id)
+     end
+     b.save_cosponsors(cosponsor_ids)
+     b.cosponsors.to_a.count.should eq(32)
     end
 
   end
@@ -140,26 +138,26 @@ describe Bill do
     it "should let a user vote on the bill" do
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id, :aye)
+      b.vote_on(u, :aye)
     end
 
     it "should tell you how a user voted on a bill" do
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id, :aye)
+      b.vote_on(u, :aye)
       b.voted_on?(u).should eql(:aye)
     end
 
     it "should get the overall users vote on a bill" do
       b = FactoryGirl.create(:bill)
-      pg = FactoryGirl.create(:common)
+      #pg = FactoryGirl.create(:common)
       state = FactoryGirl.create(:oh)
       district = FactoryGirl.create(:district)
-      users = FactoryGirl.create_list(:random_user, 4, {joined_groups: [pg], state: state, district: district})
-      b.vote_on(users[0].id, :aye)
-      b.vote_on(users[1].id, :nay)
-      b.vote_on(users[2].id, :aye)
-      b.vote_on(users[3].id, :abstain)
+      users = FactoryGirl.create_list(:random_user, 4, {state: state, district: district})
+      b.vote_on(users[0], :aye)
+      b.vote_on(users[1], :nay)
+      b.vote_on(users[2], :aye)
+      b.vote_on(users[3], :abstain)
       tally = b.get_overall_users_vote
       tally.should == {:ayes => 2, :nays => 1, :abstains => 1, :presents => 0}
     end
@@ -169,17 +167,17 @@ describe Bill do
       PolcoGroup.delete_all
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id, :aye)
-      b.votes.size.should eql(4)
-      b.votes.all.map { |v| puts "#{v.polco_group.name}" }
-      groups = b.votes.map { |v| v.polco_group.name }
-      groups.should include('common')
+      b.vote_on(u, :aye)
+      b.votes.size.should eql(1)
+      # b.votes.all.map { |v| puts "#{v.polco_group.name}" }
+      groups = b.votes.map{|v| v.polco_groups.map(&:name)}.uniq
+      groups.first.should include('common')
     end
 
     it "should show what the current users vote is on a specific bill" do
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id, :aye)
+      b.vote_on(u, :aye)
       b.users_vote(u).should eql(:aye)
     end
 
@@ -195,10 +193,10 @@ describe Bill do
       user2.district = dg; user2.save
       user3.district = dg; user3.save
       user4.district = dg; user4.save
-      b.vote_on(user1.id, :aye) # not in district
-      b.vote_on(user2.id, :nay)
-      b.vote_on(user3.id, :abstain)
-      b.vote_on(user4.id, :aye)
+      b.vote_on(user1, :aye) # not in district
+      b.vote_on(user2, :nay)
+      b.vote_on(user3, :abstain)
+      b.vote_on(user4, :aye)
       user3.district.get_tally.should eql({:ayes => 1, :nays => 1, :abstains => 1, :presents => 0})
     end
 
@@ -209,27 +207,27 @@ describe Bill do
       oh = FactoryGirl.create(:oh)
       user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4, {joined_groups: [pg, cg], district: FactoryGirl.create(:district), state: oh})
       user1.state = PolcoGroup.create(type: :state, name: "CA"); user1.save
-      b.vote_on(user1.id, :aye)
-      b.vote_on(user2.id, :nay)
-      b.vote_on(user3.id, :nay)
-      b.vote_on(user4.id, :aye)
+      b.vote_on(user1, :aye)
+      b.vote_on(user2, :nay)
+      b.vote_on(user3, :nay)
+      b.vote_on(user4, :aye)
       user2.state.get_tally.should eql({:ayes => 1, :nays => 2, :abstains => 0, :presents => 0})
     end
 
     it "should silently block a user from voting twice on a bill" do
       b = FactoryGirl.create(:bill)
       u = FactoryGirl.create(:user)
-      b.vote_on(u.id, :aye)
-      b.vote_on(u.id, :aye)
+      b.vote_on(u, :aye)
+      b.vote_on(u, :aye)
       puts u.joined_groups.map(&:name)
-      b.votes.size.should eql(u.joined_groups.size + 2)
+      b.votes.size.should eql(1)
     end
 
     it "should reject a value for vote other than :aye, :nay or :abstain" do
       b = FactoryGirl.create(:bill)
       v1 = b.votes.new
       v1.user = FactoryGirl.create(:user)
-      v1.polco_group = FactoryGirl.create(:polco_group)
+      #v1.polco_group = FactoryGirl.create(:polco_group)
       v1.value = :happy
       v1.should_not be_valid
       #assert_equal "You can only vote yes, no or abstain", v1.errors.messages[:value].first
@@ -267,8 +265,6 @@ describe Bill do
    assert_equal "VA".to_s, followed_groups.first[:name].to_s
    assert_equal({:ayes => 0, :nays => 0, :abstains => 1, :presents => 1}, followed_groups.first[:tally])
  end
-
-
 
  test "should get most recent roll called bill and exclude bills from this list that have not been roll-called" do
    #Bill.house_roll_called_bills

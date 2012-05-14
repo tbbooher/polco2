@@ -24,13 +24,15 @@
                 %a{:href => ""}= image_tag "facebook.png", width: 20, height: 20
                 %a{:href => ""}= image_tag "gplus.png", width: 20, height: 20
                 %a{:href => ""}= image_tag "rss.png", width: 20, height: 20
+                = link_to "login", signin_path
+                = link_to "logout", signout_path
               %h1#logo Polco
               %nav
                 %ul#navi
-                  %li.selected= link_to "House Bills", ""
-                  %li= link_to "District + Reps", root_path
+                  %li.selected= link_to "House Bills", represent_house_bills_path
+                  %li= link_to "District + Reps", ""
                   %li= link_to "H Representation", ""
-                  %li= link_to "Senate Bills", ""
+                  %li= link_to "Senate Bills", represent_senate_bills_path
                   %li= link_to "States", ""
                   %li= link_to "S Representation", ""
 

@@ -55,3 +55,5 @@ gem "faker", group: [:test, :development]
 gem 'feedzirra'
 gem 'sax-machine'
 gem 'httparty'
+gem 'kaminari'
+#gem 'thor'

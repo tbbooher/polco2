@@ -9,7 +9,7 @@ describe User do
     u.joined_group_ids << g.id
     u.joined_group_ids << g.id
     u.joined_group_ids << g.id
-    u.joined_group_ids.size.should eq(6)
+    u.joined_group_ids.size.should eq(5)
     u.save
     u.joined_groups.size.should eq(2)
   end
@@ -17,6 +17,11 @@ describe User do
   it "should be able to show all bills by chamber a user has not voted on" do
     u = FactoryGirl.create(:user)
     create_20_and_vote_on_10(u)
-    u.voted_bills.size.should eq(10)
+    u.bills_voted_on.size.should eq(10)
+    u.bills_not_voted_on.size.should eq(10)
+    u.bills_voted_on.should include(Bill.first)
+    not_voted_on_bills = Bill.all.to_a - Vote.all.map{|v| v.bill}
+    u.bills_not_voted_on.map(&:id).should include(not_voted_on_bills.first.id)
   end
+
 end

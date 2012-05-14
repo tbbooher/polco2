@@ -1,9 +1,11 @@
-%p#notice= notice
 
-%p
-  %b Congress:
-  = @bill.congress
+- present @bill do |bill_presenter| 
+  %h2= bill_presenter.bill_title
+  %h3= bill_presenter.bill_sponsor
+  .well
+    = bill_presenter.bill_description
+  .well
+    = bill_presenter.vote_region
+  -# load text via ajax
 
-= link_to 'Edit', edit_bill_path(@bill)
-\|
-= link_to 'Back', bills_path
+

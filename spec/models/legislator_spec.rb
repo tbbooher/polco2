@@ -30,31 +30,11 @@ describe Legislator do
     # should be at least the number of reps (435) + the number of senators
     Legislator.all.size.should eq (836)
   end
-#
-#test "We should get their party name" do
-#  assert_equal("Republican", @legislator.party)
-#end
-#
+
 it "We should be able to read their full state name" do
   @l.state.should eq("NY")
 end
-#
 
-#
-#test "We should be able to update all legislators" do
-#  Legislator.destroy_all
-#  Legislator.update_legislators
-#  # should be at least the number of reps (435) + the number of senators
-#  assert_operator Legislator.all.count, :>=, 535
-#end
-#
-#test "We should be able to get the most recent actions from a legislator" do
-# not sure if we want to do this . . .
-#  legislator_result = YAML::load(File.open("#{Rails.root}/test/fixtures/govtrack_person.yml"))
-#  role = Legislator.find_most_recent_role(legislator_result)
-#  assert_equal Date.parse("2009-01-06"), role[:startdate]
-#end
-#
 it "should be able to add constituents for state and district" do
   user = FactoryGirl.create(:user)
   @l.state_constituents << user

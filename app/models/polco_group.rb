@@ -35,7 +35,8 @@ class PolcoGroup
   #validates_uniqueness_of :members, message: "User has already joined this group"
   #validates_uniqueness_of :followers, message: "User has already joined this group"
 
-  has_many :votes
+  #has_many :votes
+  has_and_belongs_to_many :votes, index: true
 
   #before_validation :make_title
 
