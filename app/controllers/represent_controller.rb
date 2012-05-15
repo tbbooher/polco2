@@ -18,4 +18,9 @@ class RepresentController < ApplicationController
     end
   end
 
+  def legislators_districts
+    @reps = Legislator.representatives.page(params[:page]).per(10)
+    @bills = Bill.bill_search(params[:bill_search]).page(params[:page])
+  end
+
 end

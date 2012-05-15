@@ -6,7 +6,8 @@ class BillPresenter < BasePresenter
   end
 
   def bill_description
-    h.content_tag(:div, bill.long_title)
+    h.content_tag(:div, bill.long_title) +
+    h.content_tag(:div, h.content_tag(:h3, "Status") + bill.status_description)
   end
 
   def bill_sponsor

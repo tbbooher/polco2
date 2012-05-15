@@ -4,6 +4,22 @@ describe Bill do
 
   context "has basic properties and " do
 
+    it "should be able to describe it's status" do
+      b = FactoryGirl.create(:bill, bill_state: "VETOED:OVERRIDE_FAIL_SECOND:SENATE")
+      b.status_description.should eq("Veto override passed in the House (the originating chamber) but failed in the Senate.")
+    end
+
+    it "should show bills that have been voted on" do
+      pending
+    end
+
+    it "should show if it has passed" do
+      b = FactoryGirl.create(:bill, bill_state: 'ENACTED:SIGNED')
+      b.passed?.should eq(true)
+      b_failed = FactoryGirl.create(:bill, bill_state: 'PROV_KILL:CLOTUREFAILED')
+      b_failed.passed?.should eq(false)
+    end
+
     it "should be able to get a list of subjects for a bill" do
       #b = FactoryGirl.create(:bill)
       b = Bill.find_or_create_by(:title => "h3605", :govtrack_name => "h3605")
@@ -90,6 +106,10 @@ describe Bill do
   end
 
   context "when I interface with legislators a Bill" do
+
+    it "should how how the members have voted on this bill" do
+
+    end
 
     it "should be able to show the house representatives vote if the bill is a hr" do
       b = FactoryGirl.create(:bill)

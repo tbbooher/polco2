@@ -215,6 +215,10 @@ class Bill
     end
   end
 
+  def status_description
+    BILL_STATE[self.bill_state.gsub(":", "|")]
+  end
+
   def update_bill(force_update = false)
     # this is a critical method . . . (27 April 2012)
     if self.govtrack_name

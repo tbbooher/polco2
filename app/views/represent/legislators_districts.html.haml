@@ -5,3 +5,47 @@
 %p
   this page lists the legislative districts and displays their legislators             |
   also, at the bottom of the page it has a table of recent bills’ roll call results    |
+
+%p
+  display all districts, according to which district has the most registered users. for each district, provide its name, its rep, the reps pic, and the reps party. only provide 5, expandable to 10 and then more by pagination thereafter.
+  list all the bills that have been roll called in the house.
+  list in order of the most recent roll called bill.
+  these bills can be searchable, and the list of roll call final bill results in the house can be rss subscribed.
+  allow users to post comments about the current house. same options (sign vs anonymous, post privately or publicly or to joined groups, and tag as relevant about 112 house).
+  display 5 lines of 5 comments about the bill. order bills by recent, by author the the most followers, most times that comment has been fully opened. comments on the house can be searched or rss subscribed for.
+
+.well
+  %table.table.table-striped
+    %tr
+      %th district
+      %th Rep. Name
+      %th &nbsp;
+      %th Rep. Party
+    - @reps.each do |legislator|
+      %tr
+        %td= "#{legislator.state} #{legislator.district}"
+        -#this needs to be last_name, first_name at some point
+        %td= link_to legislator.full_name, legislator
+        %td= image_tag legislator.image_location_small
+        %td= legislator.party
+
+= paginate @reps
+
+.well
+  %table.table.table-striped
+    %tr
+      %th Bill
+      %th For
+      %th Against
+      %th Abstain
+      %th Result
+    - @bills.each do |bill|
+      %tr
+        %td= link_to bill.bill_title, bill_path(bill)
+        - bill_result = bill.members_tally
+        %td= bill_result[:ayes]
+        %td= bill_result[:nays]
+        %td= bill_result[:abstains]
+        %td= bill.passed? ? "Yes" : "No"
+
+  = paginate @bills

@@ -57,6 +57,8 @@ module VotingLogic
   end
 
   def members_tally
+    # TODO needs updated
+    # this answers: how did members vote on this bill?
     process_votes(self.member_votes)
   end
 
