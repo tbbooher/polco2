@@ -1,6 +1,15 @@
-- title "Polco"
-
-%p This is the new Polco
-
 - if current_user
-  %p= current_user.name
+  %p= "Welcome #{current_user.name}"
+
+.span12
+  #tagline.center
+    %h1#below REPRESENT
+    %h1#above REPRESENT
+    %img.curly{:alt => "", :height => "16", :src => "img/curly.png", :width => "71"}
+      %p#sub_tagline
+        POLCO is your
+        %a{:href => ""}
+          %b political compass
+        where you can know and see how you are
+        %a{:href => ""}
+          %b represented.
