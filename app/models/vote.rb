@@ -19,7 +19,7 @@ class Vote
 
   #has_many :followers, :class_name => "User"
   def save_chamber
-      self.chamber = self.bill.chamber
+    self.chamber = self.bill.chamber
   end
 
 end

@@ -3,14 +3,6 @@ class PolcoGroup
   include Mongoid::Timestamps
   include VotingMethods
 
-  #include ContentItem
-  
-  #acts_as_content_item
-  #has_cover_picture
-
-  #references_many :comments, :inverse_of => :commentable, :as => 'commentable'
-  #validates_associated :comments
-
   field :name, :type => String
   field :type, :type => Symbol, :default => :custom
   field :description, :type => String
@@ -35,19 +27,10 @@ class PolcoGroup
   #validates_uniqueness_of :members, message: "User has already joined this group"
   #validates_uniqueness_of :followers, message: "User has already joined this group"
 
-  #has_many :votes
   has_and_belongs_to_many :votes, index: true
 
-  #before_validation :make_title
-
-  #def make_title
-  #  puts "making title and setting draft to false for #{self.name}"
-  #  self.title = "#{self.name}_#{self.type}"
-  #  self.is_draft = false
-  #  true
-  #end
-
   def get_tally
+    # TODO what does this mean in the context of a group?
     process_votes(self.votes)
   end
 
@@ -67,16 +50,20 @@ class PolcoGroup
   scope :states, where(type: :state)
   scope :districts, where(type: :district)
   scope :customs, where(type: :custom)
-
+  scope :most_followed, desc(:follower_count)
+  scope :most_members, desc(:member_count)
+  scope :most_votes, desc(:vote_count)
 
   # time to create the ability to follow
+  before_update :update_counters
 
-  def update_followers_and_members
+  def update_counters
     #self.reload
     #puts "follower size #{self.follower_ids.size}"
     self.follower_count = self.follower_ids.size
     #puts "member size #{self.member_ids.size}"
     self.member_count = self.member_ids.size
+    self.vote_count = self.votes.size
     puts "now followers #{self.follower_count} and members #{self.member_count} for #{self.name}"
     puts "is the model valid #{self.valid?}"
   end

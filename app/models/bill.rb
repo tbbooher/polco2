@@ -41,7 +41,7 @@ class Bill
 
   field :summary_word_count, :type => Integer
   field :text_word_count, :type => Integer
-  field :vote_count, :type => Integer
+  field :vote_count, :type => Integer, default: 0
 
   field :text_updated_on, :type => Date
   field :hidden, :type => Boolean
@@ -324,6 +324,10 @@ class Bill
 
   # TODO -- need to write ways to get titles and actions for views (but not what we store in the db)
 
+  def activity?
+    self.votes.size > 0 || self.rolls.size > 0
+  end
+
   private
 
   def self.bill_search(search)
@@ -331,30 +335,6 @@ class Bill
       self.where(short_title: /#{search}/i) if search
     else
       self.all
-    end
-  end
-
-  #added by nate
-  def self.district_search(search)
-    puts search
-    if search
-      # you have to have a class to perform where on (i think)
-      self.where(district: /#{search}/i)
-    else
-      # does scoped work with mongoid
-      scoped
-    end
-  end
-
-  #added by nate
-  def self.polcogroup_search(search)
-    puts search
-    if search
-      # you have to have a class to perform where on (i think)
-      self.where(polcogroup: /#{search}/i)
-    else
-      # does scoped work with mongoid
-      scoped
     end
   end
 

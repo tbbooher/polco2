@@ -11,11 +11,14 @@ class BillsController < ApplicationController
   end
 
   def add_vote
-    @vote = Vote.new(params[:vote])
+    bill_id = params[:vote][:bill_id]
+    user = User.find(params[:vote][:user_id])
+    vote = Bill.find(bill_id).vote_on(user, params[:vote][:value])
+
 
     respond_to do |format|
-      if @vote.save
-        format.html { redirect_to bill_path(params[:vote][:bill_id]), notice: 'Vote was successfully created.' }
+      if vote
+        format.html { redirect_to bill_path(bill_id), notice: 'Vote was successfully created.' }
       else
         format.html { render action: "new" }
       end

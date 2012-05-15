@@ -4,8 +4,11 @@
   %h3= bill_presenter.bill_sponsor
   .well
     = bill_presenter.bill_description
+    %h3 Summary
+    = bill_presenter.summary
   .well
     = bill_presenter.vote_region
+  = bill_presenter.activity
   -# load text via ajax
 
 
