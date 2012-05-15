@@ -52,3 +52,4 @@ app/assets/images/photos/*
 spec/javascripts/generated/*
 config/omniauth_settings.yml
 config/mailserver_setting.yml
+development.log
