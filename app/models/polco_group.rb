@@ -48,7 +48,7 @@ class PolcoGroup
   validates_inclusion_of :type, :in => [:custom, :state, :district, :common, :country], :message => 'Only valid groups are custom, state, district, common, country'
 
   scope :states, where(type: :state)
-  scope :districts, where(type: :district)
+  scope :districts, where(type: :district).desc(:member_count)
   scope :customs, where(type: :custom)
   scope :most_followed, desc(:follower_count)
   scope :most_members, desc(:member_count)

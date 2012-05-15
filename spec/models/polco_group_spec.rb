@@ -76,4 +76,8 @@ describe PolcoGroup do
     @grps[1].vote_count.should eql(1)
   end
 
+  it "should have a polco group for each district" do
+    pending
+  end
+
 end

@@ -1,0 +1,17 @@
+%h1 Listing PolcoGroups
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @polco_groups.each do |polco_group|
+    %tr
+      %td= link_to 'Show', polco_group
+      %td= link_to 'Edit', edit_polco_group_path(polco_group)
+      %td= link_to 'Destroy', polco_group, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Legislator', new_polco_group_path

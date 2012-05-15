@@ -39,6 +39,14 @@ class Roll
     self.legislator_votes = votes_hash
   end
 
+  def tally
+    #field :aye, :type => Integer   #
+    #field :nay, :type => Integer   #
+    #field :nv, :type => Integer     #
+    #field :present, :type => Integer   #
+    {:ayes => self.aye, :nays => self.nay, :abstains => self.nv, :presents => self.present}
+  end
+
   def record_legislator_votes
     # the purpose of this is to build a table that links legislators to votes
     self.legislator_votes.each do |vote|

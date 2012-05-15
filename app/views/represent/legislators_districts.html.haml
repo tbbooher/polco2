@@ -14,6 +14,8 @@
   allow users to post comments about the current house. same options (sign vs anonymous, post privately or publicly or to joined groups, and tag as relevant about 112 house).
   display 5 lines of 5 comments about the bill. order bills by recent, by author the the most followers, most times that comment has been fully opened. comments on the house can be searched or rss subscribed for.
 
+%h2 Districts
+
 .well
   %table.table.table-striped
     %tr
@@ -21,31 +23,18 @@
       %th Rep. Name
       %th &nbsp;
       %th Rep. Party
-    - @reps.each do |legislator|
+    - @districts.each do |district|
+      - legislator = district.the_rep
       %tr
-        %td= "#{legislator.state} #{legislator.district}"
+        %td= district.name
         -#this needs to be last_name, first_name at some point
-        %td= link_to legislator.full_name, legislator
-        %td= image_tag legislator.image_location_small
-        %td= legislator.party
+        - unless legislator == "Vacant"
+          %td= link_to legislator.full_name, legislator
+          %td= image_tag legislator.image_location_small
+          %td= legislator.party
+        - else
+          %td{colspan:3} Vacant
 
-= paginate @reps
+= paginate @districts
 
-.well
-  %table.table.table-striped
-    %tr
-      %th Bill
-      %th For
-      %th Against
-      %th Abstain
-      %th Result
-    - @bills.each do |bill|
-      %tr
-        %td= link_to bill.bill_title, bill_path(bill)
-        - bill_result = bill.members_tally
-        %td= bill_result[:ayes]
-        %td= bill_result[:nays]
-        %td= bill_result[:abstains]
-        %td= bill.passed? ? "Yes" : "No"
-
-  = paginate @bills
+= render partial: "bills_with_results", locals: {bills: @bills}

@@ -47,7 +47,7 @@ class User
   end
 
   def us_state
-    self.state.name
+    self.state.name if self.state
   end
 
   def district_name

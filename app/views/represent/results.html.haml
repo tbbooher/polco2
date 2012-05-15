@@ -1,0 +1,33 @@
+- title "#{@chamber.titleize} Results for 112 Congress"
+
+- unless @bills.empty?
+  = paginate @bills
+  %table.table.zebra-striped
+    %tr
+      %th Bill
+      %th Your Vote
+      - if @chamber == 'house'
+        %th Your District Vote
+        %th Your Rep. Vote
+      - else
+        %th= @user.us_state
+        %th= "Senators #{@user.senators.map(&:last_name).to_sentence}"
+        %th
+      %th Result
+    - @bills.each do |bill|
+      %tr
+        %td= link_to bill.bill_title, bill
+        %td= bill.users_vote(@user)
+        - if @chamber == 'house'
+          %td= @user.get_district.format_votes_tally(bill)
+          %td= @user.reps_vote_on(bill)
+        - else
+          %td= short_tally(@pg_state.format_votes_tally(bill)) unless @pg_state.nil?
+          %td= @user.senators_vote_on(bill)
+        %td
+          - if bill.member_votes.empty?
+            Not voted on yet
+          - else                                                               W
+            - bill.passed? ? "Passed" : "Failed"
+- else
+  There are no bills that have been voted on (sounds like I need to pull rolls)

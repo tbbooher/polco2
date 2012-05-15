@@ -31,10 +31,10 @@
                 %ul#navi
                   %li.selected= link_to "House Bills", represent_house_bills_path
                   %li= link_to "District + Reps", represent_legislators_districts_path
-                  %li= link_to "H Representation", represent_house_results_path
+                  %li= link_to "H Representation", results_path(:house)
                   %li= link_to "Senate Bills", represent_senate_bills_path
                   %li= link_to "States", represent_states_path
-                  %li= link_to "S Representation", represent_senate_results_path
+                  %li= link_to "S Representation", results_path(:senate)
     .container
       - if content_for?(:title)
         %section{id: yield(:title)}

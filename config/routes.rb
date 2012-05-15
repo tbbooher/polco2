@@ -3,6 +3,7 @@ Polco2::Application.routes.draw do
   resources :legislators
   resources :subjects
   resources :bills
+  resources :polco_groups
 
   # what bills are active?
   get "represent/house_bills"
@@ -11,8 +12,8 @@ Polco2::Application.routes.draw do
   get "represent/legislators_districts"
   get "represent/states"
   # how are you being represented?
-  get "represent/senate_results"
-  get "represent/house_results"
+  # H3. and S3 house results -- how represented are you in the house?
+  match "/represent/:chamber" => "represent#results", as: :results
   # helper to add vote
   post "bills/add_vote", as: :add_vote
 
@@ -24,6 +25,6 @@ Polco2::Application.routes.draw do
   match '/signout' => 'sessions#destroy', :as => :signout
   match '/auth/failure' => 'sessions#failure'
 
-  # bills routes
+
 
 end

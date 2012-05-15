@@ -6,6 +6,7 @@
 cba.sublime*
 .yardoc/**/*
 Gemfile.lock
+db/backups/
 db/*.sqlite3
 log/*.log
 doc/*
@@ -53,3 +54,4 @@ spec/javascripts/generated/*
 config/omniauth_settings.yml
 config/mailserver_setting.yml
 development.log
+/assets/photos/*

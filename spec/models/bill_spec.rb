@@ -9,10 +9,6 @@ describe Bill do
       b.status_description.should eq("Veto override passed in the House (the originating chamber) but failed in the Senate.")
     end
 
-    it "should show bills that have been voted on" do
-      pending
-    end
-
     it "should show if it has passed" do
       b = FactoryGirl.create(:bill, bill_state: 'ENACTED:SIGNED')
       b.passed?.should eq(true)
@@ -91,7 +87,7 @@ describe Bill do
       feed.roll_call.count.should eq(434)
     end
 
-    it "should be able to embed a role" do
+    it "and should be able to embed a role" do
       # govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
       # h2009-11.xml h2011-28.xml h2011-40.xml h2011-9.xml
       # a role should update the status of the bill
@@ -101,6 +97,10 @@ describe Bill do
       roll = b.rolls.first
       roll.year.should eq(2011)
       roll.aye.should eq(236)
+      b2 = FactoryGirl.create_list(:bill, 10)
+      b.save
+      Bill.house_roll_called_bills.size.should eq(1)
+      b.vote_summary.should eq({:ayes => 10, :nays => 10, :presents => 10, :absents => 10})
     end
 
   end

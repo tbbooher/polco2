@@ -57,13 +57,15 @@ class Bill
   #field :abstains, :type => Integer
   #field :presents, :type => Integer
 
+  # scopes . . .
   scope :house_bills, where(title: /^h/).desc(:vote_count)
   scope :senate_bills, where(title: /^s/).desc(:vote_count)
   scope :introduced_house_bills, where(title: /^h/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
   scope :introduced_senate_bills, where(title: /^s/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
   #scope :rolled_house_bills, where(title: /^h/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   #scope :rolled_senate_bills, where(title: /^s/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
-  scope :house_roll_called_bills, where(:roll_time.exists => true) # .descending(:roll_time)
+  scope :rolled_bills, where(:roll_time.ne => nil).descending(:roll_time)
+  #scope :senate_rolled_bills, where(:roll_time.ne => nil).descending(:roll_time)
   scope :most_popular, desc(:vote_count).limit(10)
 
   belongs_to :sponsor, :class_name => "Legislator"
@@ -187,6 +189,7 @@ class Bill
     # check to make sure this is the same bill
     govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
     if self.govtrack_id == govtrack_id
+      self.roll_time = Date.parse(feed.updated_time)
       roll = Roll.new
       roll.chamber = feed.chamber
       roll.session = feed.session
@@ -330,6 +333,14 @@ class Bill
 
   def activity?
     self.votes.size > 0 || self.rolls.size > 0
+  end
+
+  def rolled?
+    (self.rolls.size > 0)
+  end
+
+  def vote_summary
+    self.rolls.last.tally if self.rolled?
   end
 
   private
