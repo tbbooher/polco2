@@ -1,7 +1,8 @@
 class UpdateGovTrackData < Thor
 
   ENV['RAILS_ENV'] ||= 'development'
-  require "/Users/Tim/Sites/polco2/config/environment.rb"
+  # require "#{Rails.roo/config/environment.rb"
+  require File.expand_path('config/environment.rb')
 
   desc "update_from_directory", "updates all bills from directory"
   def update_from_directory
@@ -24,9 +25,31 @@ class UpdateGovTrackData < Thor
     end
   end
 
+  desc "pull_out", "pull out rolled bills"
+  def pull_out
+    pattern = /<bill session="(\d+)" type="(\w+)" number="(\d+)" \/>/
+    bills = []
+    Dir.glob("#{Rails.root}/data/rolls/*.xml").each do |file|
+      File.open(file) do |f|
+        f.each_line do |line|
+          bills.push("#{$2}#{$3}.xml") if line.match(pattern)
+        end
+      end
+    end
+    puts bills.sort.uniq
+  end
+
+  desc "move_in_bills", "pull in relevant bills"
+  def move_in_bills
+     File.read("#{Rails.root}/spec/test_data/test_bills.txt").split("\n").each do |bill_name|
+       FileUtils.copy("#{Rails.root}/data/bills/#{bill_name}","#{Rails.root}/data/select_bills/")
+     end
+     districts_array = File.new("#{Rails.root}/data/districts.txt", 'r').read.split("\n")
+  end
+
   desc "update_rolls", "update the rolls of all bills"
   def update_rolls
-    Dir.glob("#{Rails.root}/data/rolls/*.xml").sort_by { |f| f.match(/\/.+\-(\d+)\./)[1].to_i }.each do |bill_path|
+    Dir.glob("#{DATA_PATH}/rolls/*.xml").sort_by { |f| f.match(/\/.+\-(\d+)\./)[1].to_i }.each do |bill_path|
       process_roll(bill_path)
     end
   end
@@ -36,54 +59,25 @@ class UpdateGovTrackData < Thor
     f = File.new(path, 'r')
     feed = Feedzirra::Parser::RollCall.parse(f)
     govtrack_id = "#{feed.bill_type}#{feed.congress}-#{feed.bill_number}"
-    if the_bill = we_need_to_look_at_it(feed, govtrack_id)
+    if the_bill = Bill.where(govtrack_id: govtrack_id).first # we_need_to_look_at_it(feed, govtrack_id)
       puts "Processing #{File.basename(f)} for #{govtrack_id}"
-      # then go through each roll call and add the member vote
-      the_bill.roll_time = Time.now
-      the_bill.member_votes = []
-      feed.roll_call.each do |v|
-        if l = Legislator.where(govtrack_id: v.member_id).first
-          #puts "adding vote of #{get_value(v.member_vote)} for #{l.full_name}"
-          the_bill.member_votes << MemberVote.new(:value => get_value(v.member_vote), :legislator => l)
-        else
-          raise "legislator #{v.member_id} not found"
-        end # legislator check
-        the_bill.save
-      end # feed check
+      the_bill.pull_in_role_feed(feed, govtrack_id)
     else
       puts "we don't need to look at #{File.basename(f)} with category #{feed.bill_category}"
     end # bill check
   end
 
   no_tasks do
-    def get_value(the_value)
-      # we have the potential to customize the values here based on
-      # :yea_vote, :nay_vote, etc
-      case the_value
-        when "+"
-          result = :aye
-        when "-"
-          result = :nay
-        when "0"
-          result = :abstain
-        when "P"
-          result = :present
-        else
-          raise "unknown value #{the_value} (expected +, -, P or 0)"
-        # if this is the case, we have to parse from <option key="P">Present</option>
-      end
-      result
-    end
 
     def we_need_to_look_at_it(feed, govtrack_id)
       #t = Time.parse(feed.updated_time)
       # we need to look at it if the bill is of category 'passage' and we haven't already looked at it
-      if feed.bill_category == 'passage'
+      #if feed.bill_category == 'passage'
         puts "hier #{govtrack_id}"
         Bill.where(govtrack_id: govtrack_id).first
-      else
-        nil
-      end
+      #else
+      #  nil
+      #end
     end
   end
 

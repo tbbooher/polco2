@@ -184,10 +184,15 @@ class Bill
   end
 
   def pull_in_roll(roll_name)
+    # this adds a roll to an existing bill, but the govtrack ids must match
     f = File.new("#{DATA_PATH}/rolls/#{roll_name}", 'r')
     feed = Feedzirra::Parser::RollCall.parse(f)
     # check to make sure this is the same bill
     govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
+    pull_in_role_feed(feed, govtrack_id)
+  end
+
+  def pull_in_role_feed(feed, govtrack_id)
     if self.govtrack_id == govtrack_id
       self.roll_time = Date.parse(feed.updated_time)
       roll = Roll.new

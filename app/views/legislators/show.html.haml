@@ -1,7 +1,29 @@
-%p#notice= notice
+- title @legislator.full_title
 
-- title @legislator.full_name
+.well
+  = image_tag @legislator.image_location_medium
 
-= link_to 'Edit', edit_legislator_path(@legislator)
-\|
-= link_to 'Back', legislators_path
+.well
+  = "#{@legislator.title} #{@legislator.last_name}"
+  is a
+  = "#{@legislator.job}."
+
+.well
+  %h3 RECENT LEGISLATIVE ACTIVITY
+
+.well
+  %h3 COMMITTEE MEMBERSHIP
+
+.well
+  %h3 BILL SPONSORSHIP & COSPONSORSHIP
+
+
+
+
+- # who is this person
+- # Tim Booher
+- # Senator from Wisconsin since 2012
+- # Democrat
+- # what bills has he sponsored?
+- # how has he voted?
+- # any other info available online?

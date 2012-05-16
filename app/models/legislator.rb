@@ -87,6 +87,7 @@ class Legislator
   end
 
   def self.update_legislators
+    # we need to prevent repeat imports
     file_data = File.new("#{DATA_PATH}/people.xml", 'r')
     feed = Feedzirra::Parser::GovTrackPeople.parse(file_data).people
     feed.each do |person|
@@ -132,6 +133,8 @@ class Legislator
 
   end
 
+
+
   def self.find_most_recent_role(person)
     #array = [person.role_startdate.map{|d| Date.parse(d)}, person.role_party]
     role = Hash.new
@@ -148,6 +151,14 @@ class Legislator
 
   def is_senator?
     self.district.nil?
+  end
+
+  def job
+    if is_senator?
+      "Senator from #{self.state}"
+    else
+      "Representative from #{self.district_name}"
+    end
   end
 
   def bills_voted_on
