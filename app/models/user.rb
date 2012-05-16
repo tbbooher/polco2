@@ -28,7 +28,7 @@ class User
   before_create :assign_default_group
 
   def bills_voted_on(chamber)
-    Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).desc(:introduced_date)
+    Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).map(&:bill_id)).desc(:introduced_date)
   end
 
   def bills_not_voted_on(chamber)
