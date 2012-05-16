@@ -55,3 +55,4 @@ config/omniauth_settings.yml
 config/mailserver_setting.yml
 development.log
 /assets/photos/*
+spec/test_data/
