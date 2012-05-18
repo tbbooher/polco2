@@ -75,8 +75,13 @@ class Bill
   validates_presence_of :govtrack_name
 
   has_many :votes
+  has_many :legislator_votes
   #embeds_many :member_votes
   embeds_many :rolls
+
+  def rolled?
+    !self.roll_time.nil?
+  end
 
   # Mongoid::Errors::Validations: Validation failed - Title can't be blank.
   def short_title

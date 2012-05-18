@@ -50,8 +50,16 @@ class User
     self.state.name if self.state
   end
 
+  def reps_vote_on(house_bill)
+    if house_bill.rolled?
+      {:rep => leg.full_name, :vote => house_bill.find_member_vote(leg)} if leg = self.representative
+    else
+      "Vote has not yet occured"
+    end
+  end
+
   def district_name
-    self.district.name
+    self.district.name if self.district
   end
 
   def record_vote_for_state_and_district(bill_id, value)

@@ -1,7 +1,9 @@
 - title "#{@chamber.titleize} Results for 112 Congress"
 
-- unless @bills.empty?
+- unless @bills.empty? || @user.district.nil?
   =# paginate @bills
+  / this page displays the representation table to compare user and rep votes
+  / it lists the bills the user has voted on, the user’s vote, the rep’s vote, and bill house result
   %table.table.zebra-striped
     %tr
       %th Bill
@@ -19,15 +21,15 @@
         %td= link_to bill.bill_title, bill
         %td= bill.users_vote(@user)
         - if @chamber == 'house'
-          %td= @user.get_district.format_votes_tally(bill)
+          %td= @user.district.format_votes_tally(bill)
           %td= @user.reps_vote_on(bill)
         - else
           %td= short_tally(@pg_state.format_votes_tally(bill)) unless @pg_state.nil?
           %td= @user.senators_vote_on(bill)
         %td
-          - if bill.member_votes.empty?
-            Not voted on yet
+          - if bill.rolled?
+            = bill.passed? ? "Passed" : "Failed"
           - else                                                               W
-            - bill.passed? ? "Passed" : "Failed"
+            No vote yet
 - else
-  There are no bills that have been voted on (sounds like I need to pull rolls)
+  There are no bills that have been voted on by anyone (sounds like I need to pull rolls)
