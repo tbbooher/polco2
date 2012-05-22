@@ -14,7 +14,6 @@
       - else
         %th= @user.us_state
         %th= "Senators #{@user.senators.map(&:last_name).to_sentence}"
-        %th
       %th Result
     - @bills.each do |bill|
       %tr
@@ -27,9 +26,9 @@
           %td= @pg_state.format_votes_tally(bill) unless @pg_state.nil?
           %td= @user.senators_vote_on(bill)
         %td
-          - if bill.rolled?
-            = bill.passed? ? "Passed" : "Failed"
-          - else                                                               W
+          - if (bill.rolled?)
+            test
+          - else
             No vote yet
 - else
   There are no bills that have been voted on by anyone (sounds like I need to pull rolls)

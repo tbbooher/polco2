@@ -12,17 +12,22 @@ describe Legislator do
 
   it "should have a chamber" do
     @l.chamber.should eql("U.S. House of Representatives")
-  #  assert_equal(, @legislator.chamber)
+    #  assert_equal(, @legislator.chamber)
   end
 
   it "should have a list of votes on bills" do
     Legislator.update_legislators
     b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '1837', govtrack_id: 'h112-1837')
-    b.pull_in_roll("h2012-86.xml")
-    roll = b.rolls.first
-    roll.record_legislator_votes   # loads the legislator vote table
+    roll = Roll.pull_in_roll("h2012-86.xml")
+    #roll.record_legislator_votes   # loads the legislator vote table
     @l.vote_on(b).should eq(:aye)
     @l.bills_voted_on.first.should eq(b.id)
+  end
+
+  it " should show how they voted on a bill" do
+    b = FactoryGirl.create(:bill)
+    LegislatorVote.create(legislator_id: @l.id, bill_id: b.id, value: :aye)
+    @l.vote_on(b).should eq :aye
   end
 
   it "should be able to read in all legislators" do
@@ -31,16 +36,16 @@ describe Legislator do
     Legislator.all.size.should eq (836)
   end
 
-it "We should be able to read their full state name" do
-  @l.state.should eq("NY")
-end
+  it "We should be able to read their full state name" do
+    @l.state.should eq("NY")
+  end
 
-it "should be able to add constituents for state and district" do
-  user = FactoryGirl.create(:user)
-  @l.state_constituents << user
-  @l.district_constituents << user
-  @l.state_constituents.count.should eq(1)
-  @l.district_constituents.count.should eq(1)
-end
+  it "should be able to add constituents for state and district" do
+    user = FactoryGirl.create(:user)
+    @l.state_constituents << user
+    @l.district_constituents << user
+    @l.state_constituents.count.should eq(1)
+    @l.district_constituents.count.should eq(1)
+  end
 
 end

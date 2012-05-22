@@ -31,11 +31,13 @@ describe Roll do
     #roll = b.rolls.first
     roll.year.should eq(2011)
     roll.aye.should eq(236)
-    b2 = FactoryGirl.create_list(:bill, 10)
-    b = Bill.where(bill_type: 'h', congress: '112', bill_number: '26').first
-    Bill.rolled_bills.house_bills.size.should eq(1)
-    b.vote_summary.should eq({:ayes=>236, :nays=>182, :abstains=>16, :presents=>0})
-    roll.legislator_votes.size.should eq(56)
+    # a confuser
+    #Bill.rolled_bills.house_bills.all.size.should eq(1)
+    Bill.where(:roll_time.ne => nil).all.size.should eq(1)
+    FactoryGirl.create_list(:bill, 10)
+    # did all the
+    Bill.where(bill_type: 'h', congress: '112', bill_number: '26').first.vote_summary.should eq({:ayes=>236, :nays=>182, :abstains=>16, :presents=>0})
+    roll.legislator_votes.size.should eq(434)
   end
 
 end

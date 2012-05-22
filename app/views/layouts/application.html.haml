@@ -24,17 +24,21 @@
                 %a{:href => ""}= image_tag "facebook.png", width: 20, height: 20
                 %a{:href => ""}= image_tag "gplus.png", width: 20, height: 20
                 %a{:href => ""}= image_tag "rss.png", width: 20, height: 20
-                = link_to "login", signin_path
-                = link_to "logout", signout_path
+                - unless current_user
+                  = link_to "login", signin_path
+                - else
+                  = link_to "logout", signout_path
               %h1#logo Polco
               %nav
                 %ul#navi
                   %li.selected= link_to "House Bills", represent_house_bills_path
                   %li= link_to "District + Reps", represent_legislators_districts_path
-                  %li= link_to "H Representation", results_path(:house)
+                  - if current_user
+                    %li= link_to "H Representation", results_path(:house)
                   %li= link_to "Senate Bills", represent_senate_bills_path
                   %li= link_to "States", represent_states_path
-                  %li= link_to "S Representation", results_path(:senate)
+                  - if current_user
+                    %li= link_to "S Representation", results_path(:senate)
     .container
       - if content_for?(:title)
         %section{id: yield(:title)}

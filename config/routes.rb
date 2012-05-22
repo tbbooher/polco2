@@ -1,10 +1,15 @@
 Polco2::Application.routes.draw do
 
-  resources :comments
+  resources :legislators do
+    resources :comments
+  end
 
-  resources :legislators
   resources :subjects
-  resources :bills
+
+  resources :bills do
+    resources :comments
+  end
+
   resources :polco_groups
 
   # what bills are active?

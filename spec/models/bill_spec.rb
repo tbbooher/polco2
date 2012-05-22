@@ -18,6 +18,7 @@ describe Bill do
 
     it "should be able to get a list of subjects for a bill" do
       #b = FactoryGirl.create(:bill)
+      load_legislators
       b = Bill.find_or_create_by(:title => "h3605", :govtrack_name => "h3605")
       b.update_bill # should modify this to work offline vcr ? with HTTParty.get govtrack
       b.subjects.size.should eql(15)
@@ -61,7 +62,7 @@ describe Bill do
       end
       most_popular_bills = Bill.most_popular.to_a
       most_popular_bills.size.should eq(10)
-      most_popular_bills.first.vote_count.should be > most_popular_bills.last.vote_count
+      most_popular_bills.first.vote_count.should be >= most_popular_bills.last.vote_count
     end
 
   end # basic properties of a bill context
@@ -70,10 +71,6 @@ describe Bill do
 
     before :each do
       load_legislators
-    end
-
-    it "should show rolled? => true if a bill has been rolled" do
-      pending "until written"
     end
 
     it "should be able to pull in a bill and update it" do
@@ -88,15 +85,17 @@ describe Bill do
 
   context "when I interface with legislators a Bill" do
 
-    it "should how how the members have voted on this bill" do
-
-    end
-
     it "should be able to show the house representatives vote if the bill is a hr" do
-      b = FactoryGirl.create(:bill)
+      load_legislators
+      b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '26', govtrack_id: 'h112-26')
+      roll = Roll.pull_in_roll("h2011-9.xml")
       u = FactoryGirl.create(:user)
-      l = FactoryGirl.create(:legislator)
-      u.reps_vote_on(b).should eq({:rep => "Gary Ackerman", :vote => :nay})
+      l = roll.legislator_votes.first.legislator
+      u.representative = l
+      u.save
+      b.reload
+      u.reload
+      u.reps_vote_on(b).should eq({:rep => "Sandy Adams", :vote => :aye})
     end
 
     it "should be able to show both senators votes if the bill is a sr" do
