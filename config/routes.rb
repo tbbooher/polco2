@@ -1,5 +1,7 @@
 Polco2::Application.routes.draw do
 
+  resources :comments
+
   resources :legislators
   resources :subjects
   resources :bills

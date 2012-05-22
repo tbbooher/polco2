@@ -67,15 +67,17 @@ module VotingLogic
   end
 
   def find_member_vote(member)
-    if self.member_votes
-      if vote = self.member_votes.where(legislator_id: member.id).first
-        vote.value
-      else
-        ""
-      end
-    else
-      "no member votes to search"
-    end
+    # how did a legislator vote on this bill
+    Bill.legislator_votes.where(legislator_id: member.id).first
+    #if self.member_votes
+    #  if vote = self.member_votes.where(legislator_id: member.id).first
+    #    vote.value
+    #  else
+    #    ""
+    #  end
+    #else
+    #  "no member votes to search"
+    #end
   end
 
   def voted_on?(user)

@@ -9,8 +9,6 @@ FactoryGirl.define do
       the_bill_number {FactoryGirl.generate(:bill_number)}
       the_bill_type {['h','s','sr','hr'][rand(4)]}
     end
-    allow_comments true
-    allow_public_comments true
     congress 112
     bill_number {the_bill_number}
     bill_type {the_bill_type}

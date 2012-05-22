@@ -68,39 +68,20 @@ describe Bill do
 
   context "can work with external data" do
 
+    before :each do
+      load_legislators
+    end
+
+    it "should show rolled? => true if a bill has been rolled" do
+      pending "until written"
+    end
+
     it "should be able to pull in a bill and update it" do
       bill_name = "h3605"
       b = Bill.find_or_create_by(:title => bill_name, :govtrack_name => bill_name)
       b.update_bill # here HTTParty.get needs stubbed again (WebMock ? or VCR?)
       b.titles[0].last.should eql("Global Online Freedom Act of 2011")
       b.should be_valid
-    end
-
-    it "should be able to get an associated roll call" do
-      # bills are named as data/us/CCC/rolls/[hs]SSSS-NNN.xml.
-      # ccc= congress number
-      f = File.new("#{DATA_PATH}/rolls/h2011-9.xml", 'r')
-      feed = Feedzirra::Parser::RollCall.parse(f)
-      feed.bill_type.should eq('hr')
-      feed.chamber.should eq('house')
-      feed.bill_number.should eq("26")
-      feed.roll_call.count.should eq(434)
-    end
-
-    it "and should be able to embed a role" do
-      # govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
-      # h2009-11.xml h2011-28.xml h2011-40.xml h2011-9.xml
-      # a role should update the status of the bill
-      b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '26', govtrack_id: 'h112-26')
-      load_legislators
-      b.pull_in_roll("h2011-9.xml")
-      roll = b.rolls.first
-      roll.year.should eq(2011)
-      roll.aye.should eq(236)
-      b2 = FactoryGirl.create_list(:bill, 10)
-      b.save
-      Bill.house_roll_called_bills.size.should eq(1)
-      b.vote_summary.should eq({:ayes => 10, :nays => 10, :presents => 10, :absents => 10})
     end
 
   end

@@ -30,6 +30,15 @@ describe PolcoGroup do
     b.vote_count.should eq(3)
   end
 
+  it "should show how the district and state are voting on a specific bill" do
+    b = FactoryGirl.create(:bill)
+    b.vote_on(@usrs[0], :aye)
+    b.vote_on(@usrs[1], :nay)
+    b.vote_on(@usrs[2], :aye)
+    @oh.format_votes_tally(b).should eq("2, 1, 0")
+    @d.format_votes_tally(b).should eq("2, 1, 0")
+  end
+
   it "should have a rep if it is a district" do
     @d.the_rep.should eq("Vacant")
   end
@@ -74,10 +83,6 @@ describe PolcoGroup do
     @grps[1].update_counters
     @grps[1].member_count.should eql(1)
     @grps[1].vote_count.should eql(1)
-  end
-
-  it "should have a polco group for each district" do
-    pending
   end
 
 end

@@ -5,8 +5,8 @@ class Bill
 
   # needed for comments
   #field :interpreter,                             :default => :markdown
-  field :allow_comments, :type => Boolean, :default => true
-  field :allow_public_comments, :type => Boolean, :default => true
+  #field :allow_comments, :type => Boolean, :default => true
+  #field :allow_public_comments, :type => Boolean, :default => true
 
   # initial fields
   field :congress, :type => Integer
@@ -75,9 +75,8 @@ class Bill
   validates_presence_of :govtrack_name
 
   has_many :votes
-  has_many :legislator_votes
   #embeds_many :member_votes
-  embeds_many :rolls
+  has_many :rolls
 
   def rolled?
     !self.roll_time.nil?
@@ -186,46 +185,6 @@ class Bill
   def get_latest_action
     last_action = self.bill_actions.sort_by { |dt, tit| dt }.last
     {:date => last_action.first, :description => last_action.last}
-  end
-
-  def pull_in_roll(roll_name)
-    # this adds a roll to an existing bill, but the govtrack ids must match
-    f = File.new("#{DATA_PATH}/rolls/#{roll_name}", 'r')
-    feed = Feedzirra::Parser::RollCall.parse(f)
-    # check to make sure this is the same bill
-    govtrack_id = "#{feed.bill_type.first}#{feed.congress}-#{feed.bill_number}"
-    pull_in_role_feed(feed, govtrack_id)
-  end
-
-  def pull_in_role_feed(feed, govtrack_id)
-    if self.govtrack_id == govtrack_id
-      self.roll_time = Date.parse(feed.updated_time)
-      roll = Roll.new
-      roll.chamber = feed.chamber
-      roll.session = feed.session
-      roll.result = feed.result
-      roll.required = feed.required
-      roll.type = feed.type
-      roll.bill_type = feed.bill_type
-      roll.the_question = feed.the_question
-      roll.bill_category = feed.bill_category
-      roll.aye = feed.aye
-      roll.nay = feed.nay
-      roll.nv = feed.nv
-      roll.present = feed.present
-      roll.year = feed.year
-      roll.congress = feed.congress
-      roll.original_time = feed.original_time
-      roll.updated_time = feed.updated_time
-      roll.embed_legislator_votes(feed.roll_call)
-      if roll.valid?
-        self.rolls << roll
-      else
-        raise "roll not valid"
-      end
-    else
-      raise "the roll for #{govtrack_id} doesn't match this bill: #{self.govtrack_id}"
-    end
   end
 
   def status_description
@@ -342,11 +301,11 @@ class Bill
   # TODO -- need to write ways to get titles and actions for views (but not what we store in the db)
 
   def activity?
-    self.votes.size > 0 || self.rolls.size > 0
+    self.votes.size > 0 || self.rolled?
   end
 
   def rolled?
-    (self.rolls.size > 0)
+    !self.roll_time.nil?
   end
 
   def vote_summary
