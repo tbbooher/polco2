@@ -54,7 +54,11 @@ class RepresentController < ApplicationController
       end
     else
       flash[:notice] = 'You need to be logged in'
-      redirect_to :back
+      if request.env["HTTP_REFERER"]
+        redirect_to :back
+      else
+        redirect_to :root
+      end
       # @bills = Bill.house_bills.page(params[:page])
     end
   end

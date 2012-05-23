@@ -52,7 +52,9 @@ class User
 
   def reps_vote_on(house_bill)
     if house_bill.rolled?
-      {:rep => leg.full_name, :vote => house_bill.find_member_vote(leg)} if leg = self.representative
+      if leg = self.representative
+        {:rep => leg.full_name, :vote => house_bill.find_member_vote(leg)}
+      end
     else
       "Vote has not yet occured"
     end
