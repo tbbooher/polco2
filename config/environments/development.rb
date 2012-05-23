@@ -1,4 +1,5 @@
-DATA_PATH = "#{Rails.root}/data"
+#DATA_PATH = "#{Rails.root}/data"
+DATA_PATH = "#{Rails.root}/spec/test_data"
 PHOTO_PATH = "/assets/member_photos"
 #PHOTO_PATH = "http://s3.amazonaws.com/Polco/pics"
 

@@ -10,7 +10,7 @@
       %th Your Vote
       - if @chamber == 'house'
         %th Your District Vote
-        %th Your Rep. Vote
+        %th= "#{@user.representative.full_name}'s vote"
       - else
         %th= @user.us_state
         %th= "Senators #{@user.senators.map(&:last_name).to_sentence}"
@@ -27,7 +27,7 @@
           %td= @user.senators_vote_on(bill)
         %td
           - if (bill.rolled?)
-            test
+            = bill.passed? ? "Passed" : "Failed"
           - else
             No vote yet
 - else

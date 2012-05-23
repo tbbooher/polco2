@@ -53,12 +53,14 @@ class User
   def reps_vote_on(house_bill)
     if house_bill.rolled?
       if leg = self.representative
-        {:rep => leg.full_name, :vote => house_bill.find_member_vote(leg)}
+        house_bill.find_member_vote(leg).to_s
       end
     else
       "Vote has not yet occured"
     end
   end
+
+
 
   def senators_vote_on(senate_bill)
     out = Array.new
@@ -103,6 +105,10 @@ class User
     else
       raise "common group does not exist and can not be created"
     end
+    # temp . ..  we assign state and district
+    self.state = PolcoGroup.states.first
+    self.district = PolcoGroup.districts.first
+    self.representative = self.district.the_rep
   end
 
   def self.create_with_omniauth(auth)

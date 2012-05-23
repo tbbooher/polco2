@@ -18,10 +18,12 @@ districts_array = File.new("#{Rails.root}/data/districts.txt", 'r').read.split("
 
 states = districts_array.map { |d| d.slice(0, 2) }.uniq.sort
 
+puts 'creating states'
 states.each do |state|
   PolcoGroup.find_or_create_by(:name => state, :type => :state)
 end
 
+puts 'creating districts'
 districts_array.each do |district|
   # create district for each state
   PolcoGroup.find_or_create_by(:name => district, :type => :district)

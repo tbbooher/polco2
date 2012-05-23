@@ -322,4 +322,9 @@ class Bill
     end
   end
 
+#   Bill files are named as follows: data/us/CCC/rolls/TTTNNN.xml.
+
+#      CCC signifies the Congress number. See the first column of data/us/sessions.tsv. It is a number from 1 to 112 (at the time of writing) without zero-padding.
+#      TTT is the type of bill or resolution from the following codes: "h" (displayed "H.R." i.e. a House bill), "hr" (displayed "H.Res.", a House resolution), "hj" (displayed "H.J.Res." i.e. a House joint resolution), "hc" (displayed "H.Con.Res.", i.e. a House Concurrent Resolution), and similarly "s", "sr", "sj", and "sc" for Senate bills displayed as "S.", "S.Res.", "S.J.Res.", and "S.Con.Res."
+
 end

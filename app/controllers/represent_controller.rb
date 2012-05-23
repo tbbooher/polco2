@@ -49,7 +49,7 @@ class RepresentController < ApplicationController
         @bills = @user.bills_voted_on(:house)
       else
         @chamber = "senate"
-        @pg_state = PolcoGroup.where(name: @user.us_state, type: :state).first
+        @pg_state = @user.state
         @bills = @user.bills_voted_on(:senate) # .page(params[:page])
       end
     else
