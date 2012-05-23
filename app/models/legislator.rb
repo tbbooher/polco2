@@ -58,7 +58,7 @@ class Legislator
   end
 
   def image_location_medium
-    "#{PHOTO_PATH}/#{self.govtrack_id}-200px.jpeg"
+    "#{PHOTO_PATH}/#{self.govtrack_id}-100px.jpeg"
   end
 
   def full_name
