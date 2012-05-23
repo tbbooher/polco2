@@ -1,4 +1,5 @@
 DATA_PATH = "#{Rails.root}/data"
+PHOTO_PATH = "#{Rails.root}/data/photos"
 
 Polco2::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb

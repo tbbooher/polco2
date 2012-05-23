@@ -54,11 +54,11 @@ class Legislator
   end
 
   def image_location_small
-    "/assets/photos/#{self.govtrack_id}-50px.jpeg"
+    "#{PHOTO_PATH}/#{self.govtrack_id}-50px.jpeg"
   end
 
   def image_location_medium
-    "/assets/photos/#{self.govtrack_id}-200px.jpeg"
+    "#{PHOTO_PATH}/#{self.govtrack_id}-200px.jpeg"
   end
 
   def full_name
