@@ -88,7 +88,7 @@ describe Bill do
     it "should be able to show the house representatives vote if the bill is a hr" do
       load_legislators
       b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '26', govtrack_id: 'h112-26')
-      roll = Roll.pull_in_roll("h2011-9.xml")
+      roll = Roll.bring_in_roll("h2011-9.xml")
       u = FactoryGirl.create(:user)
       l = roll.legislator_votes.first.legislator
       u.representative = l

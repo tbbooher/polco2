@@ -28,11 +28,16 @@ class Legislator
 
   has_many :bills, :inverse_of => :sponsor
   has_many :district_constituents, :class_name => "User", :inverse_of => :representative
+  has_many :legislator_votes
   has_and_belongs_to_many :state_constituents, :class_name => "User", :inverse_of => :senators
 
   # scopes
   scope :representatives, where(title: 'Rep.')
   scope :senators, where(title: 'Sen.')
+
+  def latest_votes
+    self.legislator_votes.descending(:updated_time)
+  end
 
   def vote_on(bill)
     LegislatorVote.where(legislator_id: self.id, bill_id: bill.id).first.value.to_sym

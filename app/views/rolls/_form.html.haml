@@ -1,0 +1,21 @@
+= simple_form_for(@roll) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :chamber
+    = f.input :session
+    = f.input :result
+    = f.input :required
+    = f.input :type
+    = f.input :bill_type
+    = f.input :the_question
+    = f.input :bill_category
+    = f.input :aye
+    = f.input :nay
+    = f.input :nv
+    = f.input :present
+    = f.input :year
+    = f.input :congress
+
+  .form-actions
+    = f.button :submit

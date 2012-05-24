@@ -18,7 +18,7 @@ describe Legislator do
   it "should have a list of votes on bills" do
     Legislator.update_legislators
     b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '1837', govtrack_id: 'h112-1837')
-    roll = Roll.pull_in_roll("h2012-86.xml")
+    roll = Roll.bring_in_roll("h2012-86.xml")
     #roll.record_legislator_votes   # loads the legislator vote table
     @l.vote_on(b).should eq(:aye)
     @l.bills_voted_on.first.should eq(b.id)

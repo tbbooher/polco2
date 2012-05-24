@@ -3,6 +3,21 @@ class UpdateGovTrackData < Thor
   ENV['RAILS_ENV'] ||= 'development'
   # require "#{Rails.roo/config/environment.rb"
   require File.expand_path('config/environment.rb')
+  require 'database_cleaner'
+
+  # rake db:seed
+  # load_legislators
+  # update_from_directory
+  # update_rolls
+
+  desc "load_all", "seeds all data"
+  def load_all
+    DatabaseCleaner.clean
+    system('rake db:seed')
+    load_legislators
+    update_from_directory
+    update_rolls
+  end
 
   desc "load_legislators", "loads all members"
   def load_legislators
@@ -51,21 +66,8 @@ class UpdateGovTrackData < Thor
   desc "update_rolls", "update the rolls of all bills"
   def update_rolls
     Dir.glob("#{DATA_PATH}/rolls/*.xml").sort_by { |f| f.match(/\/.+\-(\d+)\./)[1].to_i }.each do |bill_path|
-      process_roll(bill_path)
+      Roll.bring_in_roll(File.basename(bill_path))
     end
-  end
-
-  desc "process_roll", "update an individual role give a path to an xml file"
-  def process_roll(path)
-    f = File.new(path, 'r')
-    feed = Feedzirra::Parser::RollCall.parse(f)
-    govtrack_id = "#{feed.bill_type}#{feed.congress}-#{feed.bill_number}"
-    if the_bill = Bill.where(govtrack_id: govtrack_id).first # we_need_to_look_at_it(feed, govtrack_id)
-      puts "Processing #{File.basename(f)} for #{govtrack_id}"
-      Roll.pull_in_role_feed(feed, govtrack_id, the_bill)
-    else
-      puts "we don't need to look at #{File.basename(f)} with category #{feed.bill_category}"
-    end # bill check
   end
 
 end

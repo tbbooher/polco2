@@ -10,6 +10,14 @@
 
 .well
   %h3 RECENT LEGISLATIVE ACTIVITY
+  %table.table.zebra-striped
+    %tr
+      %th Title
+      %th Vote
+    - @legislator.latest_votes.each do |lv|
+      %tr
+        %th= link_to lv.bill.title, lv.bill
+        %th= lv.value
 
 .well
   %h3 COMMITTEE MEMBERSHIP

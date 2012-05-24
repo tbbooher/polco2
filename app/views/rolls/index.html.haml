@@ -1,0 +1,45 @@
+%h1 Listing rolls
+
+%table
+  %tr
+    %th Chamber
+    %th Session
+    %th Result
+    %th Required
+    %th Type
+    %th Bill type
+    %th The question
+    %th Bill category
+    %th Aye
+    %th Nay
+    %th Nv
+    %th Present
+    %th Year
+    %th Congress
+    %th
+    %th
+    %th
+
+  - @rolls.each do |roll|
+    %tr
+      %td= roll.chamber
+      %td= roll.session
+      %td= roll.result
+      %td= roll.required
+      %td= roll.type
+      %td= roll.bill_type
+      %td= roll.the_question
+      %td= roll.bill_category
+      %td= roll.aye
+      %td= roll.nay
+      %td= roll.nv
+      %td= roll.present
+      %td= roll.year
+      %td= roll.congress
+      %td= link_to 'Show', roll
+      %td= link_to 'Edit', edit_roll_path(roll)
+      %td= link_to 'Destroy', roll, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Roll', new_roll_path

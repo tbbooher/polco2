@@ -1,0 +1,64 @@
+%p#notice= notice
+
+%p
+  %b Chamber:
+  = @roll.chamber
+%p
+  %b Session:
+  = @roll.session
+%p
+  %b Result:
+  = @roll.result
+%p
+  %b Required:
+  = @roll.required
+%p
+  %b Type:
+  = @roll.type
+%p
+  %b Bill type:
+  = @roll.bill_type
+%p
+  %b The question:
+  = @roll.the_question
+%p
+  %b Bill category:
+  = @roll.bill_category
+%p
+  %b Aye:
+  = @roll.aye
+%p
+  %b Nay:
+  = @roll.nay
+%p
+  %b Nv:
+  = @roll.nv
+%p
+  %b Present:
+  = @roll.present
+%p
+  %b Year:
+  = @roll.year
+%p
+  %b Congress:
+  = @roll.congress
+%p
+  %b Bill:
+  = @roll.bill.title
+
+%h2 Legislator Votes
+%table.table.table-striped
+  %tr
+    %th Legislator
+    %th Vote
+  - @roll.legislator_votes.each do |lv|
+    %tr
+      %td= link_to lv.legislator.full_name, lv.legislator
+      %td= lv.value
+
+
+
+
+= link_to 'Edit', edit_roll_path(@roll)
+\|
+= link_to 'Back', rolls_path

@@ -3,12 +3,14 @@
 %table
   %tr
     %th
+    %th Votes Cast
     %th
     %th
 
   - @legislators.each do |legislator|
     %tr
-      %td= link_to 'Show', legislator
+      %td= link_to legislator.full_title, legislator
+      %td= legislator.legislator_votes.size
       %td= link_to 'Edit', edit_legislator_path(legislator)
       %td= link_to 'Destroy', legislator, :confirm => 'Are you sure?', :method => :delete
 

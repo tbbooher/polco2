@@ -1,5 +1,7 @@
 Polco2::Application.routes.draw do
 
+  resources :rolls
+
   resources :legislators do
     resources :comments
   end
