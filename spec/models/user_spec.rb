@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   it "should only be able to follow a group once" do
     g = FactoryGirl.create(:polco_group)
-    u = User.create(name: 'tim', email: Faker::Internet.email)
+    u = User.create(name: 'tim', email: Faker::Internet.email, district: FactoryGirl.create(:district), state: FactoryGirl.create(:oh))
     u.joined_group_ids << g.id
     u.should be_valid
     u.joined_group_ids << g.id

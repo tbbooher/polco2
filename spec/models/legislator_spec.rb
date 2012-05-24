@@ -48,4 +48,8 @@ describe Legislator do
     @l.district_constituents.count.should eq(1)
   end
 
+  it "should show recent legislative activity" do
+
+  end
+
 end

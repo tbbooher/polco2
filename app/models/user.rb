@@ -107,8 +107,9 @@ class User
     end
     # temp . ..  we assign state and district
     self.state = PolcoGroup.states.first
-    self.district = PolcoGroup.districts.first
-    self.representative = self.district.the_rep
+    # TODO remove this !!!!
+    self.district = PolcoGroup.districts.first unless self.district
+    self.representative = self.district.the_rep unless self.representative
   end
 
   def self.create_with_omniauth(auth)

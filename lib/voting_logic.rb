@@ -68,7 +68,10 @@ module VotingLogic
 
   def find_member_vote(member)
     # how did the member vote last on this bill?
-    self.rolls.first.legislator_votes.where(legislator_id: member.id).first.value.to_sym if self.rolled?
+    roll = self.rolls.first
+    if !roll.legislator_votes.empty? && self.rolled?
+      roll.legislator_votes.where(legislator_id: member.id).first.value.to_sym
+    end
   end
 
   def voted_on?(user)

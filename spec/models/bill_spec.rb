@@ -95,7 +95,7 @@ describe Bill do
       u.save
       b.reload
       u.reload
-      u.reps_vote_on(b).should eq({:rep => "Sandy Adams", :vote => :aye})
+      u.reps_vote_on(b).should eq("aye")
     end
 
     it "should be able to show both senators votes if the bill is a sr" do
@@ -205,13 +205,17 @@ describe Bill do
       cg = FactoryGirl.create(:polco_group)
       b = FactoryGirl.create(:bill)
       oh = FactoryGirl.create(:oh)
-      user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4, {joined_groups: [pg, cg], district: FactoryGirl.create(:district), state: oh})
+      user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4,
+                                                           {joined_groups: [pg, cg], district: FactoryGirl.create(:district), state: oh})
       user1.state = PolcoGroup.create(type: :state, name: "CA"); user1.save
       b.vote_on(user1, :aye)
       b.vote_on(user2, :nay)
-      b.vote_on(user3, :nay)
+      b.vote_on(user3, :abstain)
       b.vote_on(user4, :aye)
-      user2.state.get_tally.should eql({:ayes => 1, :nays => 2, :abstains => 0, :presents => 0})
+      user2.reload
+      user2.state.get_tally.should eql({:ayes=>1, :nays=>1, :abstains=>1, :presents=>0})
+      user1.reload
+      user1.state.get_tally.should eql({:ayes => 1, :nays => 0, :abstains => 0, :presents => 0})
     end
 
     it "should silently block a user from voting twice on a bill" do

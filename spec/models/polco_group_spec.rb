@@ -2,13 +2,10 @@ require 'spec_helper'
 
 describe PolcoGroup do
   before :each do
-    usrs = FactoryGirl.create_list(:random_user, 3)
+    # need state and district
     @oh = FactoryGirl.create(:oh)
     @d = FactoryGirl.create(:district)
-    usrs.each do |u|
-      u.state = @oh
-      u.district = @d
-    end
+    usrs = FactoryGirl.create_list(:random_user, 3, {state: @oh, district: @d})
     grps = FactoryGirl.create_list(:polco_group, 5)
     usrs[0].joined_groups << [grps[0..2]]
     usrs[1].joined_groups << [grps[3..4]]
@@ -35,6 +32,8 @@ describe PolcoGroup do
     b.vote_on(@usrs[0], :aye)
     b.vote_on(@usrs[1], :nay)
     b.vote_on(@usrs[2], :aye)
+    @oh.reload
+    @d.reload
     @oh.format_votes_tally(b).should eq("2, 1, 0")
     @d.format_votes_tally(b).should eq("2, 1, 0")
   end

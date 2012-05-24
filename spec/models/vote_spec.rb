@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Vote do
   it "should record the number of votes for a bill on each vote" do
-    usrs = FactoryGirl.create_list(:random_user, 3)
+    usrs = FactoryGirl.create_list(:random_user, 3, {district: FactoryGirl.create(:district), state: FactoryGirl.create(:oh)})
     b = FactoryGirl.create(:bill)
     b.vote_on(usrs[0], :aye)
     b.vote_on(usrs[1], :nay)

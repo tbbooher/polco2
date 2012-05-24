@@ -24,19 +24,24 @@ class UpdateGovTrackData < Thor
   def pull_out
     pattern = /<bill session="(\d+)" type="(\w+)" number="(\d+)" \/>/
     count = 0
+    # "h", "hr", "hj", "hc"
+    # "s", "sr", "sj", "sc"
     Dir.glob("#{Rails.root}/data/rolls/*.xml").each do |file|
       File.open(file) do |f|
         f.each_line do |line|
-          if line.match(pattern) && count < 100
-            count = count + 1
+          if line.match(pattern) && count < 100 && File.basename(file).first == "s"
             bill_type = $2
-            number = $3   # NOT
-            bill_name = "#{bill_type}#{number}.xml"
-            # Bill files are named as follows: data/us/CCC/rolls/TTTNNN.xml.
-            # TTT = type of resolution
-            # NNN = bill number with zero padding
-            FileUtils.copy(file,"#{Rails.root}/spec/test_data/rolls/")
-            FileUtils.copy("#{Rails.root}/data/bills/#{bill_name}","#{Rails.root}/spec/test_data/bills/")
+            if ["s", "sr", "sj", "sc"].include?(bill_type)
+              count = count + 1
+              number = $3   # NOT
+              bill_name = "#{bill_type}#{number}.xml"
+              # Bill files are named as follows: data/us/CCC/rolls/TTTNNN.xml.
+              # TTT = type of resolution
+              # NNN = bill number with zero padding
+              puts bill_type
+              FileUtils.copy(file,"#{Rails.root}/spec/test_data/rolls/")
+              FileUtils.copy("#{Rails.root}/data/bills/#{bill_name}","#{Rails.root}/spec/test_data/bills/")
+            end
           end
         end
       end

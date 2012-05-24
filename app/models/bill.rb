@@ -122,8 +122,8 @@ class Bill
 
   # ------------------- Public booher_modules aggregation methods -------------------
 
-  def self.full_type(bill_type)
-    case bill_type
+  def full_type
+    case self.bill_type
       when 'h' then
         'H.R.'
       when 'hr' then
@@ -144,24 +144,7 @@ class Bill
   end
 
   def full_number
-    case bill_type
-      when 'h' then
-        'H.R.'
-      when 'hr' then
-        'H.Res.'
-      when 'hj' then
-        'H.J.Res.'
-      when 'hc' then
-        'H.C.Res.'
-      when 's' then
-        'S.'
-      when 'sr' then
-        'S.Res.'
-      when 'sj' then
-        'S.J.Res.'
-      when 'sc' then
-        'S.C.Res.'
-    end + ' ' + bill_number.to_s
+    self.full_type + ' ' + bill_number.to_s
   end
 
   def passed?

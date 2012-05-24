@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :legislator_vote do
-    value "MyString"
+    value "aye"
+    roll {FactoryGirl.create(:roll)}
   end
 end
