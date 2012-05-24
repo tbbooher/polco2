@@ -25,37 +25,6 @@ module VotingLogic
     end
   end
 
-  def vote_on_old(user_id, value)
-    user = User.find(user_id)
-    # test to make sure the user is a member of a group
-    my_groups = user.joined_groups
-    puts "voting"
-    puts "joined group size is #{my_groups.size}"
-    unless my_groups.empty?
-      unless self.voted_on?(user)
-        user.record_vote_for_state_and_district(self.id, value)
-        self.inc(:vote_count,1)
-        my_groups.each_with_index do |g, i|
-          puts "processing #{value} for #{self} name: #{g.name} bill: #{self.title} index #{i}"
-          unless Vote.create!(:value => value, :user => user, :polco_group => g, :bill => self)
-            raise "vote not valid"
-          else
-            # increase vote count
-            puts "created vote #{value} for group #{g.name}"
-          end
-        end
-      else
-        Rails.logger.warn "already voted on"
-        puts "all ready voted on"
-        false
-        #raise "already voted on"
-      end
-      #bill.save!
-    else
-      raise "no joined_groups for this user"
-    end
-  end
-
   def members_tally
     # TODO needs updated
     # this answers: how did members vote on this bill?
@@ -70,7 +39,11 @@ module VotingLogic
     # how did the member vote last on this bill?
     roll = self.rolls.first
     if !roll.legislator_votes.empty? && self.rolled?
-      roll.legislator_votes.where(legislator_id: member.id).first.value.to_sym
+      if l = roll.legislator_votes.where(legislator_id: member.id).first
+        l.value.to_sym
+      else
+        "not found"
+      end
     end
   end
 
