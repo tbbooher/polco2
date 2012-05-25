@@ -65,7 +65,7 @@ class User
       votes = []
       self.senators.each do |senator|
         if vote = LegislatorVote.where(legislator_id: senator.id).and(bill_id: b.id).first
-           votes.push({name: vote.full_name, value: vote.value})
+           votes.push({name: vote.legislator.full_name, value: vote.value})
         end
       end
       votes
@@ -73,7 +73,7 @@ class User
   end
 
   def load_test_members
-    d = PolcoGroup.districts.where(name: 'C005').first
+    d = PolcoGroup.districts.where(name: 'CO05').first
     s = PolcoGroup.states.where(name: 'CO').first
     self.district = d
     self.state = s
