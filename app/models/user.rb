@@ -61,8 +61,8 @@ class User
   end
 
   def senators_vote_on(b)
-    unless self.senators.empty?
-      self.senators.map{|s| {name: s.full_name, value: LegislatorVote.where(legislator_id: s.id).and(bill_id: b.id).first.value} if LegislatorVote.where(legislator_id: s.id).and(bill_id: b.id).first}
+    unless self.senators.empty? && LegislatorVote.where(legislator_id: s.id).and(bill_id: b.id).size > 0
+      self.senators.map{|s| {name: s.full_name, value: LegislatorVote.where(legislator_id: s.id).and(bill_id: b.id).first.value}}
     end
   end
 
