@@ -72,6 +72,16 @@ class User
     end
   end
 
+  def load_test_members
+    d = PolcoGroup.districts.where(name: 'C005').first
+    s = PolcoGroup.states.where(name: 'CO').first
+    self.district = d
+    self.state = s
+    self.senators << Legislator.senators.where(state: 'CO').all.to_a
+    self.representative = d.the_rep
+    self.save
+  end
+
   def add_members(junior_senator, senior_senator, representative, district, us_state)
     self.senators.push(junior_senator)
     self.senators.push(senior_senator)
