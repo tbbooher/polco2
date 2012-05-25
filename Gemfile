@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem "haml", ">= 3.1.4"
 gem "haml-rails", ">= 0.3.4", :group => :development
 gem "rspec-rails", ">= 2.9.0.rc2", :group => [:development, :test]
-gem "database_cleaner", ">= 0.7.2", :group => :test
+gem "database_cleaner", ">= 0.7.2"
 gem "mongoid-rspec", ">= 1.4.4", :group => :test
 gem "factory_girl_rails", ">= 3.1.0", :group => [:development, :test]
 gem "email_spec", ">= 1.2.1", :group => :test
