@@ -40,4 +40,8 @@ class BillPresenter < BasePresenter
     render(partial: "districts", locals: {bill: bill, districts: districts}) if bill.activity? && districts.all.size > 0
   end
 
+  def rolls
+    render partial: "rolls", locals: {rolls: bill.rolls} if bill.rolls.size > 0
+  end
+
 end

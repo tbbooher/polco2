@@ -4,6 +4,19 @@ describe Bill do
 
   context "has basic properties and " do
 
+    it "should be able to update the vote count on bills" do
+      @oh = FactoryGirl.create(:oh)
+      @d = FactoryGirl.create(:district)
+      @oh.vote_count.should eq(0)
+      u = FactoryGirl.create(:user, {state: @oh, district: @d})
+      b = FactoryGirl.create(:bill)
+      b.vote_on(u,:aye)
+      @d.reload
+      @d.vote_count.should eq(1)
+      @oh.reload
+      @oh.vote_count.should eq(1)
+    end
+
     it "should be able to describe it's status" do
       b = FactoryGirl.create(:bill, bill_state: "VETOED:OVERRIDE_FAIL_SECOND:SENATE")
       b.status_description.should eq("Veto override passed in the House (the originating chamber) but failed in the Senate.")

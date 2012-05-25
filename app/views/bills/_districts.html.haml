@@ -4,7 +4,8 @@
     %tr
       %th District
       %th Pie chart
-      = "%th Rep Vote" if bill.rolls.size > 0
+      - if bill.rolled?
+        %th= "Rep Vote"
       %th Rep Name
       %th Party
     - districts.each do |d|

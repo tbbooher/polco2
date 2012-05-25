@@ -5,10 +5,13 @@
   .well
     = bill_presenter.bill_description
     %h3 Summary
-    = bill_presenter.summary
+    /= bill_presenter.summary
   .well
     = bill_presenter.vote_region
-  = bill_presenter.activity
+  .well
+    = bill_presenter.activity
+  .well
+    = bill_presenter.rolls
   -# load text via ajax
 
 

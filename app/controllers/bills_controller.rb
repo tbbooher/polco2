@@ -30,6 +30,7 @@ class BillsController < ApplicationController
   def show
     @bill = Bill.find(params[:id])
     @vote = Vote.new
+    @rolls = @bill.rolls
 
     respond_to do |format|
       format.html # show.html.erb

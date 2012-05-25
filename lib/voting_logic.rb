@@ -15,6 +15,13 @@ module VotingLogic
       v.polco_groups << user.joined_groups
       v.polco_groups << user.state
       v.polco_groups << user.district
+      # update all groups
+      # I don't like this, but the increments work
+      user.state.inc(:vote_count,1)
+      user.district.inc(:vote_count,1)
+      user.joined_groups.each do |jg|
+        jg.inc(:vote_count,1)
+      end
       v.bill = self
       v.save
       self.inc(:vote_count,1)
