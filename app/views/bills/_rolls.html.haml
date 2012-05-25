@@ -7,8 +7,8 @@
     %th Abstain
     %th Present
     %th Result
-  %tr
-    - rolls.each do |roll|
+  - rolls.each do |roll|
+    %tr
       %td= link_to roll.file_name, roll
       %td= roll.the_question
       %td= roll.aye
