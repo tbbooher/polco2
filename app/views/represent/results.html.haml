@@ -24,7 +24,10 @@
           %td= @user.reps_vote_on(bill)
         - else
           %td= @pg_state.format_votes_tally(bill) unless @pg_state.nil?
-          %td= @user.senators_vote_on(bill)
+          %td
+            - @user.senators_vote_on(bill).each do |s|
+              = "#{s[:name]}: #{s[:value]}"
+              %br
         %td
           - if (bill.rolled?)
             = bill.passed? ? "Passed" : "Failed"

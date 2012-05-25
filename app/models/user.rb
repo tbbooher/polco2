@@ -60,28 +60,20 @@ class User
     end
   end
 
-
-
-  def senators_vote_on(senate_bill)
-    out = Array.new
-    if senate_bill.rolled?
-      legs = self.senators #.senators.where(state: self.us_state)
-                           # result is mongoid criteria
-      if legs
-        legs.each do |senator|
-          # what if the member_vote is not found?
-          if senate_bill.find_member_vote(senator)
-            out.push({:senator=> senator.full_title, :vote => senate_bill.find_member_vote(senator)})
-          else
-            raise "#{senator.full_name} does not have a recorded record for #{senate_bill.title}"
-          end
-        end # legislators iteration
-      else
-        raise "no senators found for #{self.us_state}"
-      end
-    else
-      "Your senators have not yet voted on #{senate_bill.tiny_title}"
+  def senators_vote_on(b)
+    unless self.senators.empty?
+      self.senators.map{|s| {name: s.full_name, value: LegislatorVote.where(legislator_id: s.id).and(bill_id: b.id).first.value}}
     end
+  end
+
+  def add_members(junior_senator, senior_senator, representative, district, us_state)
+    self.senators.push(junior_senator)
+    self.senators.push(senior_senator)
+    self.representative = representative
+    self.district = district
+    self.add_baseline_groups(us_state, district)
+    self.role = :registered # 7 = registered (or 6?)
+    self.save!
   end
 
   def district_name

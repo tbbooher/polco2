@@ -48,8 +48,17 @@ describe Legislator do
     @l.district_constituents.count.should eq(1)
   end
 
-  it "should show recent legislative activity" do
-
+  it "should show senators votes on a bill" do
+    b = FactoryGirl.create(:bill)
+    s1 = FactoryGirl.create(:legislator, first_name: "chad")
+    s2 = FactoryGirl.create(:legislator, first_name: "ryan")
+    u = FactoryGirl.create(:user)
+    LegislatorVote.create(legislator_id: s1.id, value: :aye, bill: b.id)
+    LegislatorVote.create(legislator_id: s2.id, value: :nay, bill: b.id)
+    u.senators << [s1, s2]
+    u.save
+    u.reload
+    u.senators_vote_on(b).should eq([{:name=>"chad Ackerman", :value=>"aye"}, {:name=>"ryan Ackerman", :value=>"nay"}])
   end
 
 end
