@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :correct_user?, except: [:index, :geocode]
+  before_filter :correct_user?, except: [:index, :geocode, :district, :save_geocode]
 
   def index
     @users = User.all
@@ -31,6 +31,12 @@ class UsersController < ApplicationController
     @lat = params[:lat] || "19.71844"
     @lon = params[:lon] || "-155.095228"
     @zoom = params[:zoom] || "10"
+    json = JSON(File.read("#{Rails.root}/public/district_data/#{@district}.json"))
+    # ["name", "extents", "centroid", "coords"]
+    #gon.file_name = json["name"]
+    gon.coords = json["coords"]
+    gon.extents = json["extents"]
+    gon.centroid = json["centroid"]
   end
 
   def district
@@ -78,7 +84,7 @@ class UsersController < ApplicationController
     @senior_senator = Legislator.where(:_id => params[:senior_senator]).first
     @junior_senator = Legislator.where(:_id => params[:junior_senator]).first
     @representative = Legislator.where(:_id => params[:representative]).first
-    @user.add_district_data(@junior_senator, @senior_senator, @representative, params[:district], params[:us_state])
+    @user.add_members(@junior_senator, @senior_senator, @representative, params[:district], params[:us_state])
     # TODO save the zip code + 4 too!
     # look up bills sponsored by member
   end

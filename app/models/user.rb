@@ -6,6 +6,7 @@ class User
   field :uid, :type => String
   field :name, :type => String
   field :email, :type => String
+  field :geocoded, type: Boolean
   field :coordinates, :type => Array
 
   attr_accessible :provider, :uid, :name, :email
@@ -27,10 +28,14 @@ class User
   has_and_belongs_to_many :senators, :class_name => "Legislator", :inverse_of => :state_constituents
   belongs_to :representative, :class_name => "Legislator", :inverse_of => :district_constituents
 
-  before_create :assign_default_group
+  #before_create :assign_default_group
 
   def bills_voted_on(chamber)
     Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).map(&:bill_id)).desc(:introduced_date)
+  end
+
+  def geocoded?
+
   end
 
   def bills_not_voted_on(chamber)
@@ -110,8 +115,20 @@ class User
     self.representative = representative
     self.district = district
     self.add_baseline_groups(us_state, district)
-    self.role = :registered # 7 = registered (or 6?)
+    self.geocoded = true
+    #self.role = :registered # 7 = registered (or 6?)
     self.save!
+  end
+
+  def add_baseline_groups(us_state, district)
+    [[us_state, :state],[district, :district],['USA', :country],['Dan Cole',:common]].each do |name, type|
+      g = PolcoGroup.find_or_create_by(:name => name, :type => type)
+      #g.members.push(self)
+      g.member_count += 1
+      # but what if the user is already in this group?
+      puts self.joined_groups.inspect
+      self.joined_groups.push(g) unless self.joined_groups.include?(g)
+    end
   end
 
   def get_ip(ip)
@@ -122,6 +139,25 @@ class User
     self.district.name if self.district
   end
 
+  def get_members(members)
+    legs = []
+    members.each do |member|
+      # need to clear previous members
+      if leg = Legislator.where(:govtrack_id => member.govtrack_id).first
+        legs << leg
+      else
+        raise "legislator #{member.govtrack_id} not found"
+      end
+    end
+    # TODO -- mongo this
+    senators = legs.select { |l| l.title == 'Sen.' }.sort_by { |u| u.start_date }
+    members = Hash.new
+    members[:senior_senator] = senators.first
+    members[:junior_senator] = senators.last
+    members[:representative] = (legs - senators).first
+    members
+  end
+
   def record_vote_for_state_and_district(bill_id, value)
     if self.district.nil? || self.state.nil?
       raise "#{self.name} must have an assigned state and district"
@@ -130,20 +166,6 @@ class User
         Vote.create!(user_id: self.id, bill_id: bill_id, value: value, polco_group_id: polco_group.id)
       end
     end
-  end
-
-  def assign_default_group
-    puts "assigning default group"
-    if common_group = PolcoGroup.find_or_create_by(name: "common",type: :common)
-      self.joined_group_ids << common_group.id
-    else
-      raise "common group does not exist and can not be created"
-    end
-    # temp . ..  we assign state and district
-    self.state = PolcoGroup.states.first
-    # TODO remove this !!!!
-    self.district = PolcoGroup.districts.first unless self.district
-    self.representative = self.district.the_rep unless self.representative
   end
 
   def self.create_with_omniauth(auth)

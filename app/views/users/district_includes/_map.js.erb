@@ -1,0 +1,20 @@
+function initialize() {
+    if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(<%= @coords %>), 10);
+        map.setUIToDefault();
+    }
+
+    var WMS_URL = 'http://www.govtrack.us/perl/wms-cd.cgi?';
+    var G_MAP_LAYER_FILLED = createWMSTileLayer(WMS_URL, "cd-filled,district=<%= district %>", null, "image/gif", null, null, null, .25);
+    var G_MAP_LAYER_OUTLINES = createWMSTileLayer(WMS_URL, "cd-outline,district=<%= district %>", null, "image/gif", null, null, null, .66, "Data from GovTrack.us");
+    var G_MAP_OVERLAY = createWMSOverlayMapType([G_NORMAL_MAP.getTileLayers()[0], G_MAP_LAYER_FILLED, G_MAP_LAYER_OUTLINES], "Overlay");
+
+    map.addMapType(G_MAP_OVERLAY);
+//map.addControl(new GMapTypeControl());
+//map.setCenter(new GLatLng(39, -96), 4);
+    map.setMapType(G_MAP_OVERLAY);
+
+    var point = new GLatLng(<%= coords %>);
+    map.addOverlay(new GMarker(point));
+}
