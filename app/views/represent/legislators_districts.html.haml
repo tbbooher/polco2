@@ -1,19 +1,5 @@
 - title "districts"
 
-= link_to "lighthouse link", 'http://polco.lighthouseapp.com/projects/43281/tickets/31-house-districts-legislators'
-
-%p
-  this page lists the legislative districts and displays their legislators             |
-  also, at the bottom of the page it has a table of recent bills’ roll call results    |
-
-%p
-  display all districts, according to which district has the most registered users. for each district, provide its name, its rep, the reps pic, and the reps party. only provide 5, expandable to 10 and then more by pagination thereafter.
-  list all the bills that have been roll called in the house.
-  list in order of the most recent roll called bill.
-  these bills can be searchable, and the list of roll call final bill results in the house can be rss subscribed.
-  allow users to post comments about the current house. same options (sign vs anonymous, post privately or publicly or to joined groups, and tag as relevant about 112 house).
-  display 5 lines of 5 comments about the bill. order bills by recent, by author the the most followers, most times that comment has been fully opened. comments on the house can be searched or rss subscribed for.
-
 %h2 Districts
 
 .well
@@ -26,8 +12,7 @@
     - @districts.each do |district|
       - legislator = district.the_rep
       %tr
-        %td= district.name
-        -#this needs to be last_name, first_name at some point
+        %td= link_to district.name, district
         - unless legislator == "Vacant"
           %td= link_to legislator.full_name, legislator
           %td= image_tag legislator.image_location_small

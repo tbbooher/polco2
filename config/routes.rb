@@ -12,6 +12,11 @@ Polco2::Application.routes.draw do
     resources :comments
   end
 
+  # sign up a user for a district
+  match "/users/geocode" => "users#geocode"
+  match "/users/save_geocode" => "users#save_geocode"
+  match "/users/district" => "users#district"
+
   resources :polco_groups
 
   # what bills are active?

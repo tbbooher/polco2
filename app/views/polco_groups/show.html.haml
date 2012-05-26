@@ -2,6 +2,19 @@
 
 - title @polco_group.name
 
+- if @polco_group.votes.size > 0
+  %table.table.zebra-striped
+    %tr
+      %th Bill
+      %th User
+      %th Value
+    - @polco_group.votes.each do |vote|
+      %tr
+        %th= link_to vote.bill.short_title, vote.bill
+        %th= link_to vote.user.name, vote.user
+        %th= vote.value.to_s
+
+
 = link_to 'Edit', edit_polco_group_path(@polco_group)
 \|
 = link_to 'Back', polco_groups_path
