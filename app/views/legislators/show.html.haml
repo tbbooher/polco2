@@ -8,16 +8,19 @@
   is a
   = "#{@legislator.job}."
 
-.well
-  %h3 RECENT LEGISLATIVE ACTIVITY
-  %table.table.zebra-striped
-    %tr
-      %th Title
-      %th Vote
-    - @latest_votes.each do |lv|
+- if @latest_votes
+  .well
+    %h3 RECENT LEGISLATIVE ACTIVITY
+    %table.table.zebra-striped
       %tr
-        %th= link_to lv.bill.title, lv.bill
-        %th= lv.value
+        %th Title
+        %th Vote
+      - @latest_votes.each do |lv|
+        %tr
+          %th= link_to lv.bill.title, lv.bill
+          %th= lv.value
+- else
+  No activity yet
 
 .well
   %h3 COMMITTEE MEMBERSHIP
