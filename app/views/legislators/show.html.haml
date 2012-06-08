@@ -14,7 +14,7 @@
     %tr
       %th Title
       %th Vote
-    - @legislator.latest_votes.each do |lv|
+    - @latest_votes.each do |lv|
       %tr
         %th= link_to lv.bill.title, lv.bill
         %th= lv.value

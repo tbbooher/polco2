@@ -121,12 +121,12 @@ class User
   end
 
   def add_baseline_groups(us_state, district)
-    [[us_state, :state],[district, :district],['USA', :country],['Dan Cole',:common]].each do |name, type|
+    self.district = PolcoGroup.where(name: district, type: :district).first
+    self.state = PolcoGroup.where(name: us_state, type: :state).first
+    [['USA', :country],['Dan Cole',:common]].each do |name, type|
       g = PolcoGroup.find_or_create_by(:name => name, :type => type)
       #g.members.push(self)
       g.member_count += 1
-      # but what if the user is already in this group?
-      puts self.joined_groups.inspect
       self.joined_groups.push(g) unless self.joined_groups.include?(g)
     end
   end
