@@ -84,4 +84,9 @@ describe PolcoGroup do
     @grps[1].vote_count.should eql(1)
   end
 
+  it "should be able to show the rep for a district (and fail gracefully if it doesn't exist)" do
+    d = FactoryGirl.create(:polco_group, name: nil, type: :district)
+    d.the_rep.should eql("Only districts can have a representative")
+  end
+
 end

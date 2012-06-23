@@ -69,7 +69,8 @@ class PolcoGroup
   end
 
   def the_rep
-    if self.type == :district
+    # this method finds the rep of a district
+    if self.type == :district && self.name
       if self.name =~ /([A-Z]{2})-AL/ # then there is only one district
         puts "The district is named #{self.name}"
         l = Legislator.where(state: $1).where(district: 0).first
