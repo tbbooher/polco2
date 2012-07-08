@@ -1,0 +1,24 @@
+= form_for @user do |f|
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :State
+    %br/
+    = f.select :state_id, PolcoGroup.states.collect {|s| [s.name, s.id]}
+  .field
+    = f.label :District
+    %br/
+    = f.select :district_id, PolcoGroup.districts.collect {|s| [s.name, s.id]}
+  .field
+    = f.label :custom_group_ids, "Custom Groups"
+    %br/
+    - # (method, collection, value_method, text_method, options = {}, html_options = {})
+    = f.collection_select :custom_group_ids, PolcoGroup.customs, :id, :name, {}, {multiple:true}
+  .field
+    = f.label :followed_group_ids, "Followed Groups"
+    %br/
+    = f.collection_select :followed_group_ids, PolcoGroup.all, :id, :name, {}, {multiple:true}
+  .actions
+    = f.submit

@@ -3,39 +3,47 @@
 %p
   Email: #{@user.email if @user.email}
 
-%h3 State
-= link_to @user.state.name, @user.state
+- if @user.geocoded?
+  %h3 State
+  = link_to @user.state.name, @user.state
 
-%h3 District
-= link_to @user.district.name, @user.district
+  %h3 District
+  = link_to @user.district.name, @user.district
 
-%h3 Rep
-= link_to @user.representative.full_name, @user.representative
+  %h3 Rep
+  = link_to @user.representative.full_name, @user.representative
 
-%h3 Rep
-- @user.senators.each do |sen|
+  %h3 Senators
+  - @user.senators.each do |sen|
+    %p
+      = link_to sen.full_name, sen
+
+%h2 Groups
+
+- if @user.custom_groups.size == 0 && @user.followed_groups.size == 0
   %p
-    = link_to sen.full_name, sen
+    You have zero groups (not even the default ones)
+    = link_to "Geocode","/users/geocode"
+- else
+  - if @user.custom_groups.size > 0
+    %h3 Joined Groups
+    %table.table.zebra-striped
+      %tr
+        %th Name
+        %th Members
+      - @user.custom_groups.each do |g|
+        %tr
+          %td= link_to g.name, g
+          %td= g.member_count
 
-%h3
-
-%h3 Joined Groups
-%table.table.zebra-striped
-  %tr
-    %th Name
-    %th Members
-  - @user.joined_groups.each do |g|
-    %tr
-      %td= link_to g.name, g
-      %td= g.member_count
-
-%h3 Followed Groups
-%table.table.zebra-striped
-  %tr
-    %th Name
-    %th Members
-  - @user.followed_groups.each do |g|
-    %tr
-      %td= link_to g.name, g
-      %td= g.member_count
+  - if @user.followed_groups.size > 0
+    %h3 Followed Groups
+    %table.table.zebra-striped
+      %tr
+        %th Name
+        %th Members
+      - @user.followed_groups.each do |g|
+        %tr
+          %td= link_to g.name, g
+          %td= g.member_count
 

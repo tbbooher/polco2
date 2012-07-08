@@ -9,7 +9,7 @@ puts 'EMPTY THE MONGODB DATABASE'
 Mongoid.master.collections.reject { |c| c.name =~ /^system/}.each(&:drop)
 
 puts 'create the common polco_group'
-PolcoGroup.find_or_create_by(name: 'common', description: 'common group for all of polco', type: :common)
+PolcoGroup.find_or_create_by(name: 'Polco Common', description: 'common group for all of polco', type: :common)
 
 PolcoGroup.find_or_create_by(:name => "unaffiliated", :type => :custom)
 PolcoGroup.find_or_create_by(:name => "foreign", :type => :custom)

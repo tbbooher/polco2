@@ -1,17 +1,58 @@
-%h1 Listing PolcoGroups
+%h1 PolcoGroups
 
-%table
+%h2 States
+
+%table.table.table-striped
   %tr
     %th
     %th
     %th
 
-  - @polco_groups.each do |polco_group|
+  - @states.each do |polco_group|
     %tr
-      %td= link_to 'Show', polco_group
+      %td= link_to polco_group.name, polco_group
       %td= link_to 'Edit', edit_polco_group_path(polco_group)
       %td= link_to 'Destroy', polco_group, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Legislator', new_polco_group_path
+= paginate @states, :param_name => :page_states
+
+%h2 Districts
+
+%table.table.table-striped
+  %tr
+    %th
+    %th
+    %th
+
+  - @districts.each do |polco_group|
+    %tr
+      %td= link_to polco_group.name, polco_group
+      %td= link_to 'Edit', edit_polco_group_path(polco_group)
+      %td= link_to 'Destroy', polco_group, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= paginate @districts, :param_name => :page_districts
+
+%h2 Custom Districts
+
+%table.table.table-striped
+  %tr
+    %th
+    %th
+    %th
+
+  - @customs.each do |polco_group|
+    %tr
+      %td= link_to polco_group.name, polco_group
+      %td= link_to 'Edit', edit_polco_group_path(polco_group)
+      %td= link_to 'Destroy', polco_group, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= paginate @customs, :param_name => :page_customs
+
+
+

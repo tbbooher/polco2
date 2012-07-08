@@ -9,7 +9,7 @@ class User
   field :geocoded, type: Boolean
   field :coordinates, :type => Array
 
-  attr_accessible :provider, :uid, :name, :email
+  attr_accessible :provider, :uid, :name, :email, :custom_group_ids, :followed_group_ids, :state_id, :district_id
 
   has_many :custom_groups, :class_name => "PolcoGroup", :inverse_of => :owner
   has_many :votes
@@ -17,12 +17,12 @@ class User
   belongs_to :district, class_name: "PolcoGroup", inverse_of: :constituents
   belongs_to :state, class_name: "PolcoGroup", inverse_of: :state_constituents
 
-  has_and_belongs_to_many :joined_groups, :class_name => "PolcoGroup", :inverse_of => :members
+  has_and_belongs_to_many :custom_groups, :class_name => "PolcoGroup", :inverse_of => :members
 
   has_and_belongs_to_many :followed_groups, :class_name => "PolcoGroup", :inverse_of => :followers
 
   # a user can only join or follow a group once
-  validates :joined_group_ids, :allow_blank => true, :uniqueness => true
+  validates :custom_group_ids, :allow_blank => true, :uniqueness => true
   validates :followed_group_ids, :allow_blank => true, :uniqueness => true
 
   has_and_belongs_to_many :senators, :class_name => "Legislator", :inverse_of => :state_constituents
@@ -32,10 +32,6 @@ class User
 
   def bills_voted_on(chamber)
     Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).map(&:bill_id)).desc(:introduced_date)
-  end
-
-  def geocoded?
-
   end
 
   def bills_not_voted_on(chamber)
@@ -123,11 +119,11 @@ class User
   def add_baseline_groups(us_state, district)
     self.district = PolcoGroup.where(name: district, type: :district).first
     self.state = PolcoGroup.where(name: us_state, type: :state).first
-    [['USA', :country],['Dan Cole',:common]].each do |name, type|
+    [['USA', :country],['Polco Common',:common]].each do |name, type|
       g = PolcoGroup.find_or_create_by(:name => name, :type => type)
       #g.members.push(self)
       g.member_count += 1
-      self.joined_groups.push(g) unless self.joined_groups.include?(g)
+      self.custom_groups.push(g) unless self.custom_groups.include?(g)
     end
   end
 

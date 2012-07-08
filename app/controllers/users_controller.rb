@@ -78,9 +78,9 @@ class UsersController < ApplicationController
   def save_geocode
     @user = current_user
     # TODO remove old state and district polco_groups
-    #@user.joined_groups.where(type: :state).delete_all
-    #@user.joined_groups.where(type: :district).delete_all
-    # now add exactly two joined_groups
+    #@user.custom_groups.where(type: :state).delete_all
+    #@user.custom_groups.where(type: :district).delete_all
+    # now add exactly two custom_groups
     # how do these params get loaded -- the form . . .
     @senior_senator = Legislator.where(:_id => params[:senior_senator]).first
     @junior_senator = Legislator.where(:_id => params[:junior_senator]).first

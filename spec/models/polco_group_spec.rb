@@ -5,17 +5,32 @@ describe PolcoGroup do
     # need state and district
     @oh = FactoryGirl.create(:oh)
     @d = FactoryGirl.create(:district)
+    cg = FactoryGirl.create(:common)
     usrs = FactoryGirl.create_list(:random_user, 3, {state: @oh, district: @d})
     grps = FactoryGirl.create_list(:polco_group, 5)
-    usrs[0].joined_groups << [grps[0..2]]
-    usrs[1].joined_groups << [grps[3..4]]
-    usrs[2].joined_groups << [grps[2..3]]
+    usrs.each do |u|
+      u.custom_groups << cg
+    end
+    usrs[0].custom_groups << [grps[0..2]]
+    usrs[1].custom_groups << [grps[3..4]]
+    usrs[2].custom_groups << [grps[2..3]]
     # user 0 => 0,1,2
     # user 1 => 3,4
     # user 2 => 2,3
     # means that 2=>0,2, 3=> 1,2 and 4,0,1=> one
     @usrs = usrs
     @grps = grps
+  end
+
+  # Determine the atomic element  .. . roll
+
+  # What is the difference between joined and followed groups?
+  # If a user has joined a group they can vote with that group,
+  # otherwise they only watch that group on their stats pages.
+
+  # Every user is in the common polco group -- why don't we track this at the roll
+  it "should record all votes in a common group" do
+    # this common group can't be removed so we make it a property of the roll
   end
 
   it "should show the votes in each polco group" do
@@ -27,6 +42,10 @@ describe PolcoGroup do
     b.vote_count.should eq(3)
   end
 
+  # When we vote with a roll (or amendment?),
+  # we want to see our vote compared
+  # with all of Polco, our District, our State, or
+  # any Custom Groups that others have created
   it "should show how the district and state are voting on a specific bill" do
     b = FactoryGirl.create(:bill)
     b.vote_on(@usrs[0], :aye)
@@ -52,7 +71,7 @@ describe PolcoGroup do
   end
 
   it "should have lots of followers and members" do
-    #has_and_belongs_to_many :members, :class_name => "User", :inverse_of => :joined_groups # uniq: true
+    #has_and_belongs_to_many :members, :class_name => "User", :inverse_of => :custom_groups # uniq: true
     #has_and_belongs_to_many :followers, :class_name => "User", :inverse_of => :followed_groups #, uniq: true
     @grps[3].members.size.should eq(2)
     @grps[0].members.size.should eq(1)

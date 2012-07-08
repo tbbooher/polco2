@@ -20,7 +20,7 @@ class PolcoGroup
   has_many :constituents, class_name: "User", inverse_of: :district
   has_many :state_constituents, class_name: "User", inverse_of: :state
 
-  has_and_belongs_to_many :members, :class_name => "User", :inverse_of => :joined_groups # uniq: true
+  has_and_belongs_to_many :members, :class_name => "User", :inverse_of => :custom_groups # uniq: true
   has_and_belongs_to_many :followers, :class_name => "User", :inverse_of => :followed_groups #, uniq: true
 
   # you can only join and follow a group once

@@ -100,7 +100,7 @@ describe Bill do
 
     it "should be able to show the house representatives vote if the bill is a hr" do
       load_legislators
-      b = FactoryGirl.create(:bill, bill_type: 'h', congress: '112', bill_number: '26', govtrack_id: 'h112-26')
+      b = FactoryGirl.create(:bill, bill_type: 'hr', congress: '112', bill_number: '26', govtrack_id: 'hr112-26')
       roll = Roll.bring_in_roll("h2011-9.xml")
       u = FactoryGirl.create(:user)
       l = roll.legislator_votes.first.legislator
@@ -184,7 +184,7 @@ describe Bill do
       b.votes.size.should eql(1)
       # b.votes.all.map { |v| puts "#{v.polco_group.name}" }
       groups = b.votes.map{|v| v.polco_groups.map(&:name)}.uniq
-      groups.first.should include('common')
+      groups.first.should include('VA08')
     end
 
     it "should show what the current users vote is on a specific bill" do
@@ -197,11 +197,16 @@ describe Bill do
     it "should show the votes for a specific district that a user belongs to" do
       #PolcoGroup.destroy_all
       Vote.destroy_all
-      pg = FactoryGirl.create(:common)
-      cg = FactoryGirl.create(:polco_group)
+      PolcoGroup.destroy_all
+      #pg = FactoryGirl.create(:common)
+      cg = FactoryGirl.create(:custom_group)
       b = FactoryGirl.create(:bill)
       dg = FactoryGirl.create(:district)
-      user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4, {joined_groups: [pg, cg], state: FactoryGirl.create(:oh)})
+      user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4, {state: FactoryGirl.create(:oh)})
+      user1.custom_groups << cg
+      user2.custom_groups << cg
+      user3.custom_groups << cg
+      user4.custom_groups << cg
       user1.district = PolcoGroup.create(name: "test group"); user1.save
       user2.district = dg; user2.save
       user3.district = dg; user3.save
@@ -214,13 +219,17 @@ describe Bill do
     end
 
     it "should be able to show votes for a specific state that a user belongs to" do
-      pg = FactoryGirl.create(:common)
-      cg = FactoryGirl.create(:polco_group)
+      #pg = FactoryGirl.create(:common)
+      cg = FactoryGirl.create(:custom_group)
       b = FactoryGirl.create(:bill)
       oh = FactoryGirl.create(:oh)
       user1, user2, user3, user4 = FactoryGirl.create_list(:random_user, 4,
-                                                           {joined_groups: [pg, cg], district: FactoryGirl.create(:district), state: oh})
+                                                           {district: FactoryGirl.create(:district), state: oh})
       user1.state = PolcoGroup.create(type: :state, name: "CA"); user1.save
+      user1.custom_groups << cg
+      user2.custom_groups << cg
+      user3.custom_groups << cg
+      user4.custom_groups << cg
       b.vote_on(user1, :aye)
       b.vote_on(user2, :nay)
       b.vote_on(user3, :abstain)
@@ -236,7 +245,7 @@ describe Bill do
       u = FactoryGirl.create(:user)
       b.vote_on(u, :aye)
       b.vote_on(u, :aye)
-      puts u.joined_groups.map(&:name)
+      puts u.custom_groups.map(&:name)
       b.votes.size.should eql(1)
     end
 
@@ -251,47 +260,5 @@ describe Bill do
     end
 
   end
-
-=begin
- test "should be able to get the tallies for all of a user's custom groups (followed and joined)" do
-   # so we are logged in as user1 on @house_bill page
-   # we want to see all of our custom groups (joined groups and followed groups), with an associated tally
-   # so we can put something like this in our views
-   #@user1.joined_groups
-   #@user1.followed_groups
-   puts "********************"
-   puts " starting this test "
-   puts "********************"
-   puts "user groups at start:"
-   puts @user1.joined_groups.map(&:name)
-   puts @user1.joined_groups.size
-   @user1.vote_on(@house_bill, :aye) # follows va05
-   puts "new size #{@user1.joined_groups.size}"
-   @user2.vote_on(@house_bill, :nay)
-   @user3.vote_on(@house_bill, :abstain) # joined va05
-   @user4.vote_on(@house_bill, :present)
-   puts @user1.joined_groups.map(&:name)
-   puts "before !! #{@user1.joined_groups.count}"
-   joined_groups = @user1.joined_groups_tallies(@house_bill)
-   puts joined_groups.inspect
-   followed_groups = @user1.followed_groups_tallies(@house_bill)
-   assert_equal 4, joined_groups.count
-   assert_equal "Dan Cole", joined_groups.first[:name]
-   assert_equal({:ayes => 1, :nays => 1, :abstains => 1, :presents => 1}, joined_groups.first[:tally])
-   assert_equal 2, followed_groups.count
-   assert_equal "VA".to_s, followed_groups.first[:name].to_s
-   assert_equal({:ayes => 0, :nays => 0, :abstains => 1, :presents => 1}, followed_groups.first[:tally])
- end
-
- test "should get most recent roll called bill and exclude bills from this list that have not been roll-called" do
-   #Bill.house_roll_called_bills
-   #Bill.house_roll_called_bills.last.member_votes.count
- end
-
- test "should be able to report its activity appropriately" do
-   assert_true @house_bill_with_roll_count.activity?
-   assert_false @house_bill.activity?
- end
-=end
 
 end

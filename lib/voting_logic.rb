@@ -5,21 +5,21 @@ module VotingLogic
 
   def vote_on(user, value)
     unless self.voted_on?(user)
-      #ids = user.joined_group_ids
+      #ids = user.custom_group_ids
       #ids.push(user.state.id)
       #ids.push(user.district.id)
       #Vote.create(value: value, user_id: user.id, polco_group_ids: ids.uniq, bill_id: self.id)
       v = Vote.new
       v.value = value
       v.user = user
-      v.polco_groups << user.joined_groups
+      v.polco_groups << user.custom_groups
       v.polco_groups << user.state
       v.polco_groups << user.district
       # update all groups
       # I don't like this, but the increments work
       user.state.inc(:vote_count,1)
       user.district.inc(:vote_count,1)
-      user.joined_groups.each do |jg|
+      user.custom_groups.each do |jg|
         jg.inc(:vote_count,1)
       end
       v.bill = self

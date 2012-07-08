@@ -1,4 +1,8 @@
 jQuery ->
+  $("#user_followed_group_ids").chosen()
+  $("#user_custom_group_ids").chosen()
+  $("#user_state_id").chosen()
+  $("#user_district_id").chosen()
   udd = $("#users-district-display")
   if udd
     udd.html "<img src=\"/assets/spinner.gif\" alt=\"Loading ...\" style=\"box-shadow: none\">"

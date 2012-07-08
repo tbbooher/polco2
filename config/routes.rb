@@ -19,8 +19,6 @@ Polco2::Application.routes.draw do
 
   resources :polco_groups
 
-  get "/polco_groups/manage_groups"
-
   # what bills are active?
   get "represent/house_bills"
   get "represent/senate_bills"

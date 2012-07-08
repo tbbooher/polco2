@@ -1,7 +1,7 @@
 - title 'Geocode Saved'
 %p Good job, your geocode as been saved. You are now a part of the following groups:
 %ul
-  - @user.joined_groups.each do |group|
+  - @user.custom_groups.each do |group|
     %li= link_to group.name, group
 %h2 Your representative's Activity
 %p (Remember, only a subset of bills are loaded now)
