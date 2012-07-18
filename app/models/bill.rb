@@ -55,6 +55,7 @@ class Bill
   #field :presents, :type => Integer
 
   # scopes . . .
+  # eieio -- need to recapture this
   #scope :house_bills, where(title: /^h/).desc(:vote_count)
   #scope :senate_bills, where(title: /^s/).desc(:vote_count)
   scope :introduced_house_bills, where(title: /^h/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
