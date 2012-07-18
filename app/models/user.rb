@@ -53,6 +53,7 @@ class User
     self.state.name if self.state
   end
 
+  # eieio
   def reps_vote_on(house_bill)
     if house_bill.rolled?
       if leg = self.representative

@@ -1,5 +1,3 @@
-- next steps
 
-1. get bills working
-2. be able to vote on bills
-3. bring in legislators
+- add ability to vote on rolls
+- add back concept of vote_count to bills
