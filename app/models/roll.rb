@@ -108,5 +108,4 @@ class Roll
     end
   end
 
-
 end

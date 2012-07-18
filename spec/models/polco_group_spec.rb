@@ -9,7 +9,7 @@ describe PolcoGroup do
     usrs = FactoryGirl.create_list(:random_user, 3, {state: @oh, district: @d})
     grps = FactoryGirl.create_list(:polco_group, 5)
     usrs.each do |u|
-      u.custom_groups << cg
+      u.common_groups << cg
     end
     usrs[0].custom_groups << [grps[0..2]]
     usrs[1].custom_groups << [grps[3..4]]
@@ -31,30 +31,6 @@ describe PolcoGroup do
   # Every user is in the common polco group -- why don't we track this at the roll
   it "should record all votes in a common group" do
     # this common group can't be removed so we make it a property of the roll
-  end
-
-  it "should show the votes in each polco group" do
-    b = FactoryGirl.create(:bill)
-    b.vote_on(@usrs[0], :aye)
-    b.vote_on(@usrs[1], :nay)
-    b.vote_on(@usrs[2], :aye)
-    Vote.all.size.should eq(3)
-    b.vote_count.should eq(3)
-  end
-
-  # When we vote with a roll (or amendment?),
-  # we want to see our vote compared
-  # with all of Polco, our District, our State, or
-  # any Custom Groups that others have created
-  it "should show how the district and state are voting on a specific bill" do
-    b = FactoryGirl.create(:bill)
-    b.vote_on(@usrs[0], :aye)
-    b.vote_on(@usrs[1], :nay)
-    b.vote_on(@usrs[2], :aye)
-    @oh.reload
-    @d.reload
-    @oh.format_votes_tally(b).should eq("2, 1, 0")
-    @d.format_votes_tally(b).should eq("2, 1, 0")
   end
 
   it "should have a rep if it is a district" do
@@ -106,6 +82,10 @@ describe PolcoGroup do
   it "should be able to show the rep for a district (and fail gracefully if it doesn't exist)" do
     d = FactoryGirl.create(:polco_group, name: nil, type: :district)
     d.the_rep.should eql("Only districts can have a representative")
+  end
+
+  it "should be able to record a tally for a common group" do
+
   end
 
 end

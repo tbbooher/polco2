@@ -13,6 +13,7 @@ module VotingLogic
       v.value = value
       v.user = user
       v.polco_groups << user.custom_groups
+      v.polco_groups << user.common_groups
       v.polco_groups << user.state
       v.polco_groups << user.district
       # update all groups

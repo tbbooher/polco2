@@ -19,6 +19,7 @@ describe User do
   it "should only be able to follow a group once" do
     g = FactoryGirl.create(:polco_group)
     u = User.create(name: 'tim', email: Faker::Internet.email, district: FactoryGirl.create(:district), state: FactoryGirl.create(:oh))
+    u.common_groups << FactoryGirl.create(:common)
     u.custom_group_ids << g.id
     u.should be_valid
     u.custom_group_ids << g.id

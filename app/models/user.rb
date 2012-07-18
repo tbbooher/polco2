@@ -19,6 +19,8 @@ class User
 
   has_and_belongs_to_many :custom_groups, :class_name => "PolcoGroup", :inverse_of => :members
 
+  has_and_belongs_to_many :common_groups, :class_name => "PolcoGroup", :inverse_of => :common_members
+
   has_and_belongs_to_many :followed_groups, :class_name => "PolcoGroup", :inverse_of => :followers
 
   # a user can only join or follow a group once
@@ -30,10 +32,13 @@ class User
 
   #before_create :assign_default_group
 
+  # eieio
+  # i don't think bills could be voted on . . .
   def bills_voted_on(chamber)
     Bill.any_in(_id: Vote.where(user_id: self.id).and(chamber: chamber).map(&:bill_id)).desc(:introduced_date)
   end
 
+  # eieio -- same logic
   def bills_not_voted_on(chamber)
     ids = Vote.where(user_id: self.id).map{|v| v.bill.id }
     if chamber == :house
@@ -44,6 +49,7 @@ class User
     #Bill.find(Bill.all.map(&:id)-Vote.where(user_id: self.id).map{|v| v.bill.id })
   end
 
+  # eieio
   def find_10_bills_not_voted_on
     ids = Vote.where(user_id: self.id).map{|v| v.bill.id }
     Bill.not_in(_id: ids).limit(10)
@@ -53,6 +59,8 @@ class User
     self.state.name if self.state
   end
 
+  # eieio
+  # this needs to run off of roll
   def reps_vote_on(house_bill)
     if house_bill.rolled?
       if leg = self.representative
@@ -63,6 +71,8 @@ class User
     end
   end
 
+  # eieio
+  # this needs to run on roll
   def senators_vote_on(b)
     unless self.senators.empty?
       votes = []
@@ -123,7 +133,7 @@ class User
       g = PolcoGroup.find_or_create_by(:name => name, :type => type)
       #g.members.push(self)
       g.member_count += 1
-      self.custom_groups.push(g) unless self.custom_groups.include?(g)
+      self.common_groups.push(g) unless self.common_groups.include?(g)
     end
   end
 
@@ -154,6 +164,8 @@ class User
     members
   end
 
+  # eieio
+  #
   def record_vote_for_state_and_district(bill_id, value)
     if self.district.nil? || self.state.nil?
       raise "#{self.name} must have an assigned state and district"

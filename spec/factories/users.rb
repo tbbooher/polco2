@@ -5,7 +5,8 @@ FactoryGirl.define do
     provider "developer"
     name "Leopold"
     email "leopold@habsburgfamily.es"
-    custom_groups {[FactoryGirl.create(:polco_group), FactoryGirl.create(:common)]}
+    custom_groups {[FactoryGirl.create(:polco_group)]}
+    common_groups {[FactoryGirl.create(:common)]}
     state {FactoryGirl.create(:oh)}
     district {FactoryGirl.create(:district)}
 
@@ -13,6 +14,7 @@ FactoryGirl.define do
       name {Faker::Name.name}
       email {Faker::Internet.email}
       custom_groups []
+      common_groups []
       district nil
       state nil
     end
