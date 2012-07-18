@@ -1,7 +1,5 @@
 class Bill
   include Mongoid::Document
-  include VotingLogic
-  include VotingMethods
 
   # needed for comments
   #field :interpreter,                             :default => :markdown
@@ -41,7 +39,6 @@ class Bill
 
   field :summary_word_count, :type => Integer
   field :text_word_count, :type => Integer
-  field :vote_count, :type => Integer, default: 0
 
   field :text_updated_on, :type => Date
   field :hidden, :type => Boolean
@@ -58,8 +55,8 @@ class Bill
   #field :presents, :type => Integer
 
   # scopes . . .
-  scope :house_bills, where(title: /^h/).desc(:vote_count)
-  scope :senate_bills, where(title: /^s/).desc(:vote_count)
+  #scope :house_bills, where(title: /^h/).desc(:vote_count)
+  #scope :senate_bills, where(title: /^s/).desc(:vote_count)
   scope :introduced_house_bills, where(title: /^h/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
   scope :introduced_senate_bills, where(title: /^s/).and(bill_state: /^INTRODUCED|REPORTED|REFERRED$/).desc(:introduced_date)
   #scope :rolled_house_bills, where(title: /^h/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)

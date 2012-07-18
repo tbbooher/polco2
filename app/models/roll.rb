@@ -1,5 +1,7 @@
 class Roll
   include Mongoid::Document
+  include VotingLogic
+  include VotingMethods
 
   field :chamber, :type => String
   field :session, :type => Integer #
@@ -17,6 +19,8 @@ class Roll
   field :present, :type => Integer   #
   field :year, :type => Integer     #
   field :congress, :type => String  #
+  # just added . . . rolls vote
+  field :vote_count, :type => Integer, default: 0
   #
   field :original_time, :type => Time    #
   field :updated_time, :type => Time     #

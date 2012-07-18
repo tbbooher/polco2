@@ -1,2 +1,3 @@
-- be able to vote on a roll
 
+- add ability to vote on rolls
+- add back concept of vote_count to bills
