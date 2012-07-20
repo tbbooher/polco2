@@ -55,20 +55,20 @@ describe PolcoGroup do
   end
 
   it "should show the vote count in each group" do
-    b = FactoryGirl.create(:bill)
-    b.vote_on(@usrs[0], :aye)
-    b.vote_on(@usrs[1], :nay)
-    b.vote_on(@usrs[2], :aye)
+    r = FactoryGirl.create(:roll)
+    r.vote_on(@usrs[0], :aye)
+    r.vote_on(@usrs[1], :nay)
+    r.vote_on(@usrs[2], :aye)
     @grps[2].votes.size.should eq(2)
     @grps[2]
     PolcoGroup.where(type: :common).first.votes.size.should eq(3)
   end
 
   it "should have a member, vote and follower count" do
-    b = FactoryGirl.create(:bill)
-    b.vote_on(@usrs[0], :aye)
-    b.vote_on(@usrs[1], :nay)
-    b.vote_on(@usrs[2], :aye)
+    r = FactoryGirl.create(:roll)
+    r.vote_on(@usrs[0], :aye)
+    r.vote_on(@usrs[1], :nay)
+    r.vote_on(@usrs[2], :aye)
     # means that 2=>0,2, 3=> 1,2 and 4,0,1=> one
     @grps[2].update_counters
     @grps[2].member_count.should eql(2)

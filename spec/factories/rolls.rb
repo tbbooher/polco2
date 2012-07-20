@@ -18,5 +18,7 @@ FactoryGirl.define do
     congress "112"
     original_time Time.parse("2011-01-07 16 04 00 UTC")
     updated_time Time.parse("2011-12-05 15 49 06 UTC")
+    # add bill
+    bill
   end
 end

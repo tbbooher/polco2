@@ -3,29 +3,29 @@ class Roll
   include VotingLogic
   include VotingMethods
 
-  field :chamber, :type => String
-  field :session, :type => Integer #
+  field :chamber, type: String
+  field :session, type: Integer #
   field :file_name, type: String
-  field :result, :type => String #
-  field :required, :type => String #
-  field :type, :type => String #
-  field :bill_type, :type => String #
-  field :the_question, :type => String #
-  field :bill_category, :type => String #
+  field :result, type: String #
+  field :required, type: String #
+  field :type, type: String #
+  field :bill_type, type: String #
+  field :the_question, type: String #
+  field :bill_category, type: String #
   # votes
-  field :aye, :type => Integer   #
-  field :nay, :type => Integer   #
-  field :nv, :type => Integer     #
-  field :present, :type => Integer   #
-  field :year, :type => Integer     #
-  field :congress, :type => String  #
+  field :aye, type: Integer   #
+  field :nay, type: Integer   #
+  field :nv, type: Integer     #
+  field :present, type: Integer   #
+  field :year, type: Integer     #
+  field :congress, type: String  #
   # just added . . . rolls vote
-  field :vote_count, :type => Integer, default: 0
+  field :vote_count, type: Integer, default: 0
   #
-  field :original_time, :type => Time    #
-  field :updated_time, :type => Time     #
+  field :original_time, type: Time    #
+  field :updated_time, type: Time     #
   # still here for speed . . . (might delete)
-  #field :legislator_votes, :type => Hash
+  #field :legislator_votes, type: Hash
 
   # associations
   belongs_to :bill
@@ -50,10 +50,10 @@ class Roll
   end
 
   def tally
-    #field :aye, :type => Integer   #
-    #field :nay, :type => Integer   #
-    #field :nv, :type => Integer     #
-    #field :present, :type => Integer   #
+    #field :aye, type: Integer   #
+    #field :nay, type: Integer   #
+    #field :nv, type: Integer     #
+    #field :present, type: Integer   #
     {:ayes => self.aye, :nays => self.nay, :abstains => self.nv, :presents => self.present}
   end
 

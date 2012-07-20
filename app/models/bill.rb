@@ -46,13 +46,7 @@ class Bill
   # roll call results
   field :roll_time, :type => DateTime
   index :roll_time
-  index :vote_count
-
-  # TODO -- this is recorded in votes -- can't we delete?
-  #field :ayes, :type => Integer
-  #field :nays, :type => Integer
-  #field :abstains, :type => Integer
-  #field :presents, :type => Integer
+  #index :vote_count
 
   # scopes . . .
   # eieio -- need to recapture this
@@ -64,7 +58,8 @@ class Bill
   #scope :rolled_senate_bills, where(title: /^s/).excludes(bill_state: /^INTRODUCED|REPORTED|REFERRED$/)
   scope :rolled_bills, where(:roll_time.ne => nil).descending(:roll_time)
   #scope :senate_rolled_bills, where(:roll_time.ne => nil).descending(:roll_time)
-  scope :most_popular, desc(:vote_count).limit(10)
+  # eieio -- need to re-discover most popular
+  # scope :most_popular, desc(:vote_count).limit(10)
 
   belongs_to :sponsor, :class_name => "Legislator"
   has_and_belongs_to_many :cosponsors, :order => :state, :class_name => "Legislator"
@@ -72,7 +67,7 @@ class Bill
 
   validates_presence_of :govtrack_name
 
-  has_many :votes
+  #has_many :votes
   #embeds_many :member_votes
   has_many :rolls
 
@@ -281,14 +276,15 @@ class Bill
 
   # TODO -- need to write ways to get titles and actions for views (but not what we store in the db)
 
-  def activity?
-    self.votes.size > 0 || self.rolled?
-  end
+  #def activity?
+  #  self.votes.size > 0 || self.rolled?
+  #end
 
   def rolled?
     !self.roll_time.nil?
   end
 
+  # eieio -- this is the "last" vote summary
   def vote_summary
     self.rolls.last.tally if self.rolled?
   end

@@ -1,14 +1,14 @@
 module VotingLogic
 
-  # this module contains everything related to bills and voting
-  # since all voting happens on bills, we want to put all voting logic here
+  # this module contains everything related to rolls and voting
+  # since all voting happens on rolls, we want to put all voting logic here
 
   def vote_on(user, value)
     unless self.voted_on?(user)
       #ids = user.custom_group_ids
       #ids.push(user.state.id)
       #ids.push(user.district.id)
-      #Vote.create(value: value, user_id: user.id, polco_group_ids: ids.uniq, bill_id: self.id)
+      #Vote.create(value: value, user_id: user.id, polco_group_ids: ids.uniq, roll_id: self.id)
       v = Vote.new
       v.value = value
       v.user = user
@@ -23,11 +23,11 @@ module VotingLogic
       user.custom_groups.each do |jg|
         jg.inc(:vote_count,1)
       end
-      v.bill = self
+      v.roll = self
       v.save
       self.inc(:vote_count,1)
     else
-      Rails.logger.warn "already voted on #{user.name} with #{self.bill_title}"
+      Rails.logger.warn "already voted on #{user.name} with #{self.roll_title}"
       puts "already voted on"
       false
     end
@@ -35,7 +35,7 @@ module VotingLogic
 
   def members_tally
     # TODO needs updated
-    # this answers: how did members vote on this bill?
+    # this answers: how did members vote on this roll?
     process_votes(self.member_votes)
   end
 
@@ -44,7 +44,7 @@ module VotingLogic
   end
 
   def find_member_vote(member)
-    # how did the member vote last on this bill?
+    # how did the member vote last on this roll?
     roll = self.rolls.first
     if !roll.legislator_votes.empty? && self.rolled?
       if l = roll.legislator_votes.where(legislator_id: member.id).first
@@ -56,7 +56,7 @@ module VotingLogic
   end
 
   def voted_on?(user)
-    if vote = user.votes.where(bill_id: self.id).first
+    if vote = user.votes.where(roll_id: self.id).first
       vote.value
     end
   end
